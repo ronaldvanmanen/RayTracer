@@ -1,0 +1,21 @@
+# Object directory
+**/obj
+
+# Exec directory
+**/bin
+
+# Library directory
+**/lib
+
+# Object files
+*.o
+
+# Ada Library Information (ALI) files 
+*.ali
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+
+
