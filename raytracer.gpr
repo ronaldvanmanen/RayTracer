@@ -1,0 +1,7 @@
+aggregate project Raytracer is
+
+    for Project_files use ("cli/cli.gpr",
+                           "common/common.gpr",
+                           "testsuite/testsuite.gpr");
+
+end Raytracer;
