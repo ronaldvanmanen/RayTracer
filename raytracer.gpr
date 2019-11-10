@@ -1,7 +1,12 @@
 aggregate project Raytracer is
 
+    type Yes_No is ("yes", "no");
+
+    Coverage : Yes_No := External ("COVERAGE", "no");
+
     for Project_files use ("cli/cli.gpr",
                            "common/common.gpr",
-                           "testsuite/testsuite.gpr");
+                           "testsuite/testsuite.gpr",
+                           "ui/ui.gpr");
 
 end Raytracer;
