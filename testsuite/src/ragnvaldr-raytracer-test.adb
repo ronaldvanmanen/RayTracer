@@ -9,7 +9,7 @@ package body Ragnvaldr.Raytracer.Test is
         pragma Unreferenced(T);
 
         A_Ray : Ray := (Origin => (1.0, -2.0, 1.0), Direction => (1.0, 2.0, 4.0));
-        A_Sphere : Sphere := (Center => (3.0, 0.0, 5.0), Radius => 3.0);
+        A_Sphere : Sphere := (Position => (3.0, 0.0, 5.0), Radius => 3.0);
         Is_Hit : Boolean := False;
         A_Hit : Hit;
     

@@ -15,7 +15,7 @@ package body Ragnvaldr.Raytracer is
     function Get_Surface_Normal(A_Sphere : Sphere; 
                                 A_Point : Vector) return Vector is
     begin -- Get_Surface_Normal
-        return (A_Point - A_Sphere.Center) / A_Sphere.Radius;
+        return (A_Point - A_Sphere.Position) / A_Sphere.Radius;
     end Get_Surface_Normal;
 
     function Intersects (A_Ray : in Ray;
@@ -37,7 +37,7 @@ package body Ragnvaldr.Raytracer is
     begin -- Intersect
       
         -- (1) Find if ray's origin is outside sphere
-        Origin_To_Center := A_Sphere.Center - A_Ray.Origin;
+        Origin_To_Center := A_Sphere.Position - A_Ray.Origin;
         Length_Squared_Of_Origin_To_Center := Origin_To_Center * Origin_To_Center;
         Radius_Of_Sphere_Squared := A_Sphere.Radius * A_Sphere.Radius;
         Is_Outside := Length_Squared_Of_Origin_To_Center >= Radius_Of_Sphere_Squared;
