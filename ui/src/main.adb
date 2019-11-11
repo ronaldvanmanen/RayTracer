@@ -1,35 +1,27 @@
-with Gtk.Box;         use Gtk.Box;
-with Gtk.Label;       use Gtk.Label;
-with Gtk.Widget;      use Gtk.Widget;
+with Gtk.Box;          use Gtk.Box;
+with Gtk.Drawing_Area; use Gtk.Drawing_Area;
 with Gtk.Main;
-with Gtk.Window;      use Gtk.Window;
+with Gtk.Window;       use Gtk.Window;
+
+with Main_Quit;
 
 procedure Main is
-
-   Win   : Gtk_Window;
-   Label : Gtk_Label;
-   Box   : Gtk_Vbox;
-
+    MainWindow   : Gtk_Window;
+    Drawing_Area : Gtk_Drawing_Area;
 begin
-   --  Initialize GtkAda.
-   Gtk.Main.Init;
+    Gtk.Main.Init;
 
-   --  Create a window with a size of 400x400
-   Gtk_New (Win);
-   Win.Set_Default_Size (800, 600);
+    Gtk_New (MainWindow);
+    MainWindow.Set_Default_Size (800, 600);
+    MainWindow.On_Destroy (Main_Quit'Access);
 
-   --  Create a box to organize vertically the contents of the window
-   Gtk_New_Vbox (Box);
-   Win.Add (Box);
+    Gtk_New (Drawing_Area);
+    Drawing_Area.Set_Size_Request(640, 480);
+    MainWindow.Add(Drawing_Area);
 
-   --  Add a label
-   Gtk_New (Label, "Hello world.");
-   Box.Add (Label);
+    --  Show the window and present it
+    MainWindow.Show_All;
+    MainWindow.Present;
 
-   --  Show the window and present it
-   Win.Show_All;
-   Win.Present;
-
-   --  Start the Gtk+ main loop
-   Gtk.Main.Main;
+    Gtk.Main.Main;
 end Main;
