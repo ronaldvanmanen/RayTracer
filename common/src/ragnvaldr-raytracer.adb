@@ -6,8 +6,16 @@ package body Ragnvaldr.Raytracer is
 
     use Float_Elementary_Functions;
 
+    function Make_Ray(Origin : Vector; Direction : Vector) return Ray is
+        Ret : Ray;
+    begin
+        Ret := (Origin => Origin,
+                Direction => Direction / Sqrt(Direction * Direction));
+        return Ret;
+    end;    
+    
     function Get_Point (A_Ray : Ray;
-                        A_Distance : Float) return Vector is
+                        A_Distance : Distance) return Vector is
     begin -- Get_Point;
         return A_Ray.Origin + A_Ray.Direction * A_Distance;
     end Get_Point;
@@ -19,8 +27,7 @@ package body Ragnvaldr.Raytracer is
     end Get_Surface_Normal;
 
     function Intersects (A_Ray : in Ray;
-                         A_Sphere : in Sphere;
-                         A_Hit : out Hit) return Boolean is
+                         A_Sphere : in Sphere) return Intersections is
       
         Origin_To_Center : Vector;
         Length_Squared_Of_Origin_To_Center : Float;
@@ -28,13 +35,11 @@ package body Ragnvaldr.Raytracer is
         Is_Outside : Boolean;
         Closest_Approach : Float;
         Points_Away : Boolean;
+        Closest_Approach_Squared : Float;
         Half_Chord_Distance_Squared : Float;
         Half_Chord_Distance : Float;
-        Distance : Float;
-        Intersection_Point : Vector;
-        Surface_Normal : Vector;
         
-    begin -- Intersect
+    begin -- Intersects
       
         -- (1) Find if ray's origin is outside sphere
         Origin_To_Center := A_Sphere.Position - A_Ray.Origin;
@@ -48,33 +53,49 @@ package body Ragnvaldr.Raytracer is
       
         -- (3) If ray is outside and points away from sphere, ray must miss sphere
         if Is_Outside and Points_Away then
-            return False;
+            return No_Intersections;
         end if;
       
         -- (4) Else, find squared distance from closest approach to sphere surface
+        Closest_Approach_Squared := Closest_Approach * Closest_Approach;
         Half_Chord_Distance_Squared := Radius_Of_Sphere_Squared -
-          Length_Squared_Of_Origin_To_Center + Closest_Approach;
+          Length_Squared_Of_Origin_To_Center + Closest_Approach_Squared;
 
         -- (5) If value is negative, ray must miss sphere
         if Half_Chord_Distance_Squared < 0.0 then
-            return False;
+            return No_Intersections;
         end if;
       
         -- (6) Else, from above, find ray/surface distance
         Half_Chord_Distance := Sqrt(Half_Chord_Distance_Squared);
-        Distance := (
-                     if Is_Outside 
-                     then Closest_Approach - Half_Chord_Distance 
-                     else Closest_Approach + Half_Chord_Distance
-                    );
-      
-        -- (7) Calculate intersection coordinate and surface normal
-        Intersection_Point := Get_Point(A_Ray, Distance);
-        Surface_Normal := Get_Surface_Normal(A_Sphere, Intersection_Point);
-        A_Hit := (Intersection_Point => Intersection_Point, 
-                  Surface_Normal => Surface_Normal); 
-        return True;
-      
+
+        if Is_Outside then
+            declare
+                Ret : Intersections(1..2);
+            begin
+                Ret (1) := Closest_Approach - Half_Chord_Distance;
+                Ret (2) := Closest_Approach + Half_Chord_Distance;
+                return Ret;
+            end;
+        else
+            declare
+                Ret : Intersections(1..1);
+            begin
+                Ret (1) := Closest_Approach + Half_Chord_Distance;
+                return Ret;
+            end;
+        end if;
     end Intersects;
     
+    function Make_Camera return Camera is
+        Position : Vector;
+        Orientation : EulerVector;
+        Ret : Camera;
+    begin
+        Position := (0.0, 0.0, 0.0);
+        Orientation := (Axis => (0.0, 0.0, 1.0), Angle => 0.0);
+        Ret := (Position => Position, Orientation => Orientation);
+        return Ret;
+    end Make_Camera;
+        
 end Ragnvaldr.Raytracer;
