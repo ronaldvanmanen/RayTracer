@@ -40,4 +40,21 @@ package body Ragnvaldr.Raytracer.Test is
 
     end Test_Intersects;
 
+    procedure Test_Not_Intersects (T : in out Test) is
+        
+        pragma Unreferenced(T);
+
+        A_Ray : Ray := Make_Ray(Origin => (1.0, -2.0, -1.0),
+                                Direction => (-1.0, -2.0, -4.0));
+        
+        A_Sphere : Sphere := (Position => (3.0, 0.0, 5.0),
+                              Radius => 3.0);
+        
+        Actual_Intersections : Intersections := Intersects(A_Ray => A_Ray, A_Sphere => A_Sphere);
+    begin -- Test_Intersects
+
+        Assert(Actual_Intersections'Length = 0, "The ray must not hit the sphere");
+        
+    end Test_Not_Intersects;
+
 end Ragnvaldr.Raytracer.Test;

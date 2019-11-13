@@ -26,4 +26,6 @@ package Ragnvaldr.Raytracer.Test
 
     procedure Test_Intersects (T : in out Test);
 
+    procedure Test_Not_Intersects (T : in out Test);
+
 end Ragnvaldr.Raytracer.Test;
