@@ -30,4 +30,6 @@ package Ragnvaldr.Raytracer.Test
 
     procedure Test_Intersects_Ray_Inside(T : in out Test);
 
+    procedure Test_Intersects_Ray_Outside_And_Passes(T : in out Test);
+
 end Ragnvaldr.Raytracer.Test;
