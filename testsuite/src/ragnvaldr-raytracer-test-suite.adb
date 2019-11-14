@@ -24,8 +24,9 @@ package body Ragnvaldr.Raytracer.Test.Suite is
     function Suite return Access_Test_Suite is
         Ret : constant Access_Test_Suite := new Test_Suite;
     begin
-        Ret.Add_Test(Caller.Create("Test Intersects", Test_Intersects'Access));
-        Ret.Add_Test(Caller.Create("Test Not Intersects", Test_Not_Intersects'Access));
+        Ret.Add_Test(Caller.Create("Test_Intersects_Ray_Outside_And_Points_Towards", Test_Intersects_Ray_Outside_And_Points_Towards'Access));
+        Ret.Add_Test(Caller.Create("Test_Intersects_Ray_Outside_And_Points_Away", Test_Intersects_Ray_Outside_And_Points_Away'Access));
+        Ret.Add_Test(Caller.Create("Test_Intersects_Ray_Inside", Test_Intersects_Ray_Inside'Access));
         return Ret;
     end Suite;
 

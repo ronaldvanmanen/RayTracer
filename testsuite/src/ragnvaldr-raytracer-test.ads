@@ -24,8 +24,10 @@ package Ragnvaldr.Raytracer.Test
 
     type Test is new AUnit.Test_Fixtures.Test_Fixture with null record;
 
-    procedure Test_Intersects (T : in out Test);
+    procedure Test_Intersects_Ray_Outside_And_Points_Towards(T : in out Test);
 
-    procedure Test_Not_Intersects (T : in out Test);
+    procedure Test_Intersects_Ray_Outside_And_Points_Away(T : in out Test);
+
+    procedure Test_Intersects_Ray_Inside(T : in out Test);
 
 end Ragnvaldr.Raytracer.Test;
