@@ -78,7 +78,7 @@ package body Ragnvaldr.Raytracer.Test is
     
     end Test_Intersects_Ray_Inside;
       
-    procedure Test_Intersects_Ray_Outside_And_Passes(T : in out Test) is
+    procedure Test_Intersects_Ray_Outside_And_Points_Along(T : in out Test) is
         
         pragma Unreferenced(T);
 
@@ -90,10 +90,10 @@ package body Ragnvaldr.Raytracer.Test is
         
         Actual_Intersections : Intersections := Intersects(A_Ray => A_Ray, A_Sphere => A_Sphere);
     
-    begin -- Test_Intersects_Ray_Outside_And_Passes
+    begin -- Test_Intersects_Ray_Outside_And_Points_Along
 
         Assert(Actual_Intersections'Length = 0, "The ray must miss the sphere");
         
-    end Test_Intersects_Ray_Outside_And_Passes;
+    end Test_Intersects_Ray_Outside_And_Points_Along;
 
 end Ragnvaldr.Raytracer.Test;

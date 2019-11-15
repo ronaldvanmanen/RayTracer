@@ -27,7 +27,7 @@ package body Ragnvaldr.Raytracer.Test.Suite is
         Ret.Add_Test(Caller.Create("Test_Intersects_Ray_Outside_And_Points_Towards", Test_Intersects_Ray_Outside_And_Points_Towards'Access));
         Ret.Add_Test(Caller.Create("Test_Intersects_Ray_Outside_And_Points_Away", Test_Intersects_Ray_Outside_And_Points_Away'Access));
         Ret.Add_Test(Caller.Create("Test_Intersects_Ray_Inside", Test_Intersects_Ray_Inside'Access));
-        Ret.Add_Test(Caller.Create("Test_Intersects_Ray_Outside_And_Passes", Test_Intersects_Ray_Outside_And_Passes'Access));
+        Ret.Add_Test(Caller.Create("Test_Intersects_Ray_Outside_And_Points_Along", Test_Intersects_Ray_Outside_And_Points_Along'Access));
         return Ret;
     end Suite;
 
