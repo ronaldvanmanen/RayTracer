@@ -62,8 +62,11 @@ package Ragnvaldr.Raytracer is
     --  @param A_Sphere The sphere to return the surface normal of.
     --  @param A_Point A point on the surface of the sphere.
     --  @return The surface normal.
-      with Global => null;
-
+      with 
+        Global => null,
+        Pre => abs(A_Point - A_Sphere.Position) = A_Sphere.Radius,
+        Post => Get_Surface_Normal'Result = (A_Point - A_Sphere.Position) / A_Sphere.Radius;
+            
     type Intersections is array (Positive range <>) of Distance;
     
     No_Intersections : constant Intersections (1..0) := (others => 0.0);
