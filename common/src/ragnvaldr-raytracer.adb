@@ -27,7 +27,7 @@ package body Ragnvaldr.Raytracer is
         Ret : Ray;
     begin
         Ret := (Origin => Origin,
-                Direction => Direction / Sqrt(Direction * Direction));
+                Direction => Direction / abs Direction);
         return Ret;
     end;    
     
