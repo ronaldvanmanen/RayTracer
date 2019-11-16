@@ -20,3 +20,9 @@
 
 # Auto generated project file
 gpsauto.cgpr
+
+# Auto generated project files locations file
+*-loc.xml
+
+# gprof profile data
+gmon.out
