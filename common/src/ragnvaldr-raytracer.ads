@@ -21,7 +21,7 @@ use Ada.Numerics.Real_Arrays;
 
 package Ragnvaldr.Raytracer is
 
-    subtype Distance is Float range Float'Small .. Float'Large;
+    subtype Length is Float;
     
     type Vector is new Real_Vector (1..3);
 
@@ -40,7 +40,7 @@ package Ragnvaldr.Raytracer is
     
     function Make_Ray(Origin : Vector; Direction : Vector) return Ray;
 
-    function Get_Point (A_Ray : Ray; A_Distance : Distance) return Vector
+    function Get_Point (A_Ray : Ray; A_Distance : Length) return Vector
     --  Returns the point at the specified distance from the origin of a ray.
     --  @param A_Ray The ray to interest.
     --  @param A_Distance The distance to travel along the ray.
@@ -52,7 +52,7 @@ package Ragnvaldr.Raytracer is
         -- Represents a sphere.
         Position : Vector;
         --  The center of the sphere.
-        Radius : Distance;
+        Radius : Length;
         --  The radius of the sphere.
     end record;
 
@@ -66,13 +66,21 @@ package Ragnvaldr.Raytracer is
         Global => null,
         Pre => abs(A_Point - A_Sphere.Position) = A_Sphere.Radius,
         Post => Get_Surface_Normal'Result = (A_Point - A_Sphere.Position) / A_Sphere.Radius;
-            
-    type Intersections is array (Positive range <>) of Distance;
+          
+    type Hit_State is (Entering, Exiting);
     
-    No_Intersections : constant Intersections (1..0) := (others => 0.0);
+    type Hit is record
+        Distance : Length;
+        State : Hit_State;        
+    end record;
+            
+    type Hit_Array is array (Positive range <>) of Hit;
+    
+    Empty_Hit_Array : constant Hit_Array (1..0) := 
+      (others => Hit'(Distance => 0.0, State => Entering));
     
     function Intersects (A_Ray : in Ray;
-                         A_Sphere : in Sphere) return Intersections
+                         A_Sphere : in Sphere) return Hit_Array
       with Global => null;
     
     type Camera is tagged private;

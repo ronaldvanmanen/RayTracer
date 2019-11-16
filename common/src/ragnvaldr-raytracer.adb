@@ -19,20 +19,18 @@ with Ada.Numerics.Generic_Elementary_Functions;
 
 package body Ragnvaldr.Raytracer is
 
-    package Float_Elementary_Functions is new Ada.Numerics.Generic_Elementary_Functions (Float);
-
-    use Float_Elementary_Functions;
-
-    function Make_Ray(Origin : Vector; Direction : Vector) return Ray is
-        Ret : Ray;
+    package Elementary_Functions is
+      new Ada.Numerics.Generic_Elementary_Functions (Float);
+    use Elementary_Functions;
+    
+    function Make_Ray(Origin : Vector; 
+                      Direction : Vector) return Ray is
     begin
-        Ret := (Origin => Origin,
-                Direction => Direction / abs Direction);
-        return Ret;
+        return Ray' (Origin => Origin, Direction => Direction / abs Direction);
     end;    
     
     function Get_Point (A_Ray : Ray;
-                        A_Distance : Distance) return Vector is
+                        A_Distance : Length) return Vector is
     begin -- Get_Point;
         return A_Ray.Origin + A_Ray.Direction * A_Distance;
     end Get_Point;
@@ -44,17 +42,17 @@ package body Ragnvaldr.Raytracer is
     end Get_Surface_Normal;
 
     function Intersects (A_Ray : in Ray;
-                         A_Sphere : in Sphere) return Intersections is
+                         A_Sphere : in Sphere) return Hit_Array is
       
         Origin_To_Center : Vector;
-        Length_Squared_Of_Origin_To_Center : Float;
-        Radius_Of_Sphere_Squared : Float;
+        Length_Squared_Of_Origin_To_Center : Length;
+        Radius_Of_Sphere_Squared : Length;
         Is_Outside : Boolean;
-        Closest_Approach : Float;
+        Closest_Approach : Length;
         Points_Away : Boolean;
-        Closest_Approach_Squared : Float;
-        Half_Chord_Distance_Squared : Float;
-        Half_Chord_Distance : Float;
+        Closest_Approach_Squared : Length;
+        Half_Chord_Distance_Squared : Length;
+        Half_Chord_Distance : Length;
         
     begin -- Intersects
       
@@ -70,7 +68,7 @@ package body Ragnvaldr.Raytracer is
       
         -- (3) If ray is outside and points away from sphere, ray must miss sphere
         if Is_Outside and Points_Away then
-            return No_Intersections;
+            return Empty_Hit_Array;
         end if;
       
         -- (4) Else, find squared distance from closest approach to sphere surface
@@ -80,7 +78,7 @@ package body Ragnvaldr.Raytracer is
 
         -- (5) If value is negative, ray must miss sphere
         if Half_Chord_Distance_Squared < 0.0 then
-            return No_Intersections;
+            return Empty_Hit_Array;
         end if;
       
         -- (6) Else, from above, find ray/surface distance
@@ -88,17 +86,23 @@ package body Ragnvaldr.Raytracer is
 
         if Is_Outside then
             declare
-                Ret : Intersections(1..2);
+                Ret : Hit_Array(1..2);
             begin
-                Ret (1) := Closest_Approach - Half_Chord_Distance;
-                Ret (2) := Closest_Approach + Half_Chord_Distance;
+                Ret (1) := Hit'
+                  (Distance => Closest_Approach - Half_Chord_Distance,
+                   State => Entering);
+                Ret (2) := Hit'
+                  (Distance => Closest_Approach + Half_Chord_Distance,
+                   State => Exiting);
                 return Ret;
             end;
         else
             declare
-                Ret : Intersections(1..1);
+                Ret : Hit_Array(1..1);
             begin
-                Ret (1) := Closest_Approach + Half_Chord_Distance;
+                Ret (1) := Hit'
+                  (Distance => Closest_Approach + Half_Chord_Distance,
+                   State => Exiting);
                 return Ret;
             end;
         end if;
