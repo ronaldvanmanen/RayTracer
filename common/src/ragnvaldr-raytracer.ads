@@ -80,6 +80,14 @@ private
     type Camera is tagged record
         Position : Vector;
         Orientation : Euler_Vector;
+        Frame_Width : Integer;
+        Frame_Height : Integer;
+        Frame_Aspect_Ratio : Float;
+        Near_Clippling_Plane : Length;
+        Far_Clipping_Plane : Length;
+        Focal_Ratio : Float;
+        Focal_Length : Length;
+        Focal_Distance : Length;
     end record;
             
 end Ragnvaldr.Raytracer;

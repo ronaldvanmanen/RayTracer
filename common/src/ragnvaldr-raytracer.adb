@@ -108,15 +108,25 @@ package body Ragnvaldr.Raytracer is
         end if;
     end Intersects;
     
+    Zero : Float := 0.0;
+    
+    Positive_Infinity : constant Float := 1.0 / Zero; 
+    
     function Make_Camera return Camera is
-        Position : Vector;
-        Orientation : EulerVector;
-        Ret : Camera;
     begin
-        Position := (0.0, 0.0, 0.0);
-        Orientation := (Axis => (0.0, 0.0, 1.0), Angle => 0.0);
-        Ret := (Position => Position, Orientation => Orientation);
-        return Ret;
+        return Camera'
+          (
+           Position => (0.0, 0.0, 0.0),
+           Orientation => (Axis => (0.0, 0.0, 1.0), Angle => 0.0),
+           Frame_Width => 640,
+           Frame_Height => 480,
+           Frame_Aspect_Ratio => 4.0 / 3.0,
+           Near_Clippling_Plane => Float'Epsilon,
+           Far_Clipping_Plane => Positive_Infinity,
+           Focal_Ratio => Positive_Infinity,
+           Focal_Length => (640.0 / 480.0) / Tan(90.0 / 2.0),
+           Focal_Distance => Positive_Infinity
+          );
     end Make_Camera;
         
 end Ragnvaldr.Raytracer;
