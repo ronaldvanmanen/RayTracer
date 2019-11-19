@@ -15,8 +15,17 @@
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+with Ada.Numerics.Real_Arrays; use Ada.Numerics.Real_Arrays;
+
 package Ragnvaldr.Numerics is
 
-   pragma Pure;
+    subtype Length is Float;
+
+    type Vector is new Real_Vector (1..3);
+
+    type Euler_Vector is record
+        Axis : Vector;
+        Angle : Float;
+    end record;
 
 end Ragnvaldr.Numerics;

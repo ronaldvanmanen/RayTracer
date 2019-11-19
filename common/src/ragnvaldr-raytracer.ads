@@ -15,20 +15,9 @@
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-with Ada.Numerics.Real_Arrays;
-
-use Ada.Numerics.Real_Arrays;
+with Ragnvaldr.Numerics; use Ragnvaldr.Numerics;
 
 package Ragnvaldr.Raytracer is
-
-    subtype Length is Float;
-    
-    type Vector is new Real_Vector (1..3);
-
-    type EulerVector is record
-        Axis : Vector;
-        Angle : Float;
-    end record;
 
     type Ray is record
         -- Represents a ray (of light).
@@ -90,7 +79,7 @@ package Ragnvaldr.Raytracer is
 private
     type Camera is tagged record
         Position : Vector;
-        Orientation : EulerVector;
+        Orientation : Euler_Vector;
     end record;
             
 end Ragnvaldr.Raytracer;
