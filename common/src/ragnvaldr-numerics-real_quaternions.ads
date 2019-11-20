@@ -15,30 +15,9 @@
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-generic
+with Ragnvaldr.Numerics.Generic_Real_Quaternions;
 
-    type Real is digits <>;
-    
 package Ragnvaldr.Numerics.Real_Quaternions is
+    new Ragnvaldr.Numerics.Generic_Real_Quaternions (Float);
 
-    type Quaternion is record
-        A, B, C, D : Real;
-    end record;
-    
-    function "+" (Left, Right : Quaternion) return Quaternion
-      with
-        Global => null,
-        Post => "+"'Result.A = Left.A + Right.A and 
-        "+"'Result.B = Left.B + Right.B and 
-        "+"'Result.C = Left.C + Right.C and 
-        "+"'Result.D = Left.D + Right.D;
-        
-    function "-" (Left, Right : Quaternion) return Quaternion
-      with
-        Global => null;
-
-    function Image (Value : Quaternion) return String
-      with
-        Global => null;
-    
-end Ragnvaldr.Numerics.Real_Quaternions;
+pragma Pure (Real_Quaternions);

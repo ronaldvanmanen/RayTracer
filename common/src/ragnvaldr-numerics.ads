@@ -19,6 +19,8 @@ with Ada.Numerics.Real_Arrays; use Ada.Numerics.Real_Arrays;
 
 package Ragnvaldr.Numerics is
 
+    pragma Pure (Numerics);
+
     subtype Length is Float;
 
     type Vector is new Real_Vector (1..3);

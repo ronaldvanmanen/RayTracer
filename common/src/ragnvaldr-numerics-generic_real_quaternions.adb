@@ -15,7 +15,7 @@
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-package body Ragnvaldr.Numerics.Real_Quaternions is
+package body Ragnvaldr.Numerics.Generic_Real_Quaternions is
 
     function "+" (Left, Right : Quaternion) return Quaternion is
     begin
@@ -42,4 +42,4 @@ package body Ragnvaldr.Numerics.Real_Quaternions is
           Real'Image (Value.D) & "k";
     end Image;
 
-end Ragnvaldr.Numerics.Real_Quaternions;
+end Ragnvaldr.Numerics.Generic_Real_Quaternions;
