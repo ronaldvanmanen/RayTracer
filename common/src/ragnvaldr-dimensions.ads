@@ -21,6 +21,8 @@ generic
     
 package Ragnvaldr.Dimensions is
 
+    pragma Pure (Dimensions);
+    
     -- The base type for all quantities as defined by International System of Quantities (ISQ).
     type SI_Type is new Real with
       Dimension_System => 
@@ -34,42 +36,43 @@ package Ragnvaldr.Dimensions is
          (Unit_Name => Candela,  Unit_Symbol => "cd",  Dim_Symbol => 'J')
         );
 
+    -- The type for the base quantity amount of substance.
+    subtype Amount_Of_Substance is SI_Type with Dimension =>
+      (Symbol => "mol", Mole => 1, others => 0);
+    
+    -- The type for the base quantity electric current.
+    subtype Electric_Current is SI_Type with Dimension => 
+      (Symbol => 'A', Ampere => 1, others => 0);
+    
     -- The type for the base quantity length.
     subtype Length is SI_Type with Dimension => 
       (Symbol => 'm', Meter => 1, others => 0);
+
+    -- The type for the base quantity luminous intensity.
+    subtype Luminous_Intensity is SI_Type with Dimension =>
+      (Symbol => "cd", Candela => 1, others => 0);
     
     -- The type for the base quantity mass.
     subtype Mass is SI_Type with Dimension =>
       (Symbol => "kg", Kilogram => 1, others => 0);
     
-    -- The type for the base quantity time.
-    subtype Time is SI_Type with Dimension => 
-      (Symbol => 's', Second => 1, others => 0);
-
-    -- The type for the base quantity electric current.
-    subtype Electric_Current is SI_Type with Dimension => 
-      (Symbol => 'A', Ampere => 1, others => 0);
-    
     -- The type for the base quantity thermodynamic temperature.
     subtype Thermodynamic_Temperature is SI_Type with Dimension =>
       (Symbol => 'K', Kelvin => 1, others => 0);
     
-    -- The type for the base quantity amount of substance.
-    subtype Amount_Of_Substance is SI_Type with Dimension =>
-      (Symbol => "mol", Mole => 1, others => 0);
+    -- The type for the base quantity time.
+    subtype Time is SI_Type with Dimension => 
+      (Symbol => 's', Second => 1, others => 0);
+
     
-    -- The type for the base quantity luminous intensity.
-    subtype Luminous_Intensity is SI_Type with Dimension =>
-      (Symbol => "cd", Candela => 1, others => 0);
+    -- The type for the derived quantity absorbed dose.
+    subtype Absorbed_Dose is SI_Type with Dimension =>
+      (Symbol => "Gy", Meter => 2, Second => -2, others => 0);
     
-    -- The type for the derived quantity frequency.
-    subtype Frequency is SI_Type with Dimension =>
-      (Symbol => "Hz", Second => -1, others => 0);
-        
-    -- The type for the derived quantity frequency.
-    subtype Speed is SI_Type with Dimension =>
-      (Symbol => "m/s", Meter => 1, Second => -1, others => 0);
-    
+    -- The type for the derived quantity angle.
+    subtype Angle is SI_Type with Dimension =>
+      (Symbol => "rad", others => 0);
+             
     -- The type for the derived quantity acceleration.
     subtype Acceleration is SI_Type with Dimension =>
       (Symbol => "m/s^2", Meter => 1, Second => -2, others => 0);
@@ -77,12 +80,137 @@ package Ragnvaldr.Dimensions is
     -- The type for the derived quantity area.
     subtype Area is SI_Type with Dimension => 
       (Symbol => 'm', Meter => 2, others => 0);
+
+    -- The type for the derived quantity catalytic activity.
+    subtype Catalytic_Activity is SI_Type with Dimension =>
+      (Symbol => "kat", Second => -1, Mole => 1, others => 0);
+
+    -- The type for the derived quantity electric charge.
+    subtype Electric_Charge is SI_Type with Dimension =>
+      (Symbol => 'C', Second => 1, Ampere => 1, others => 0);
+
+    -- The type for the derived quantity electrical capacitance.
+    subtype Electrical_Capacitance is SI_Type with Dimension =>
+      (Symbol => 'F', Kilogram => -1, Meter => -2, Second => 4, Ampere => 2, others => 0);
+
+    -- The type for the derived quantity electrical conductance.
+    subtype Electrical_Conductance is SI_Type with Dimension =>
+      (Symbol => "S", Kilogram => -1, Meter => -2, Second => 3, Ampere => 2, others => 0);
+
+    -- The type for the derived quantity electrical inductance.
+    subtype Electrical_Inductance is SI_Type with Dimension =>
+      (Symbol => "S", Kilogram => 1, Meter => 2, Second => -2, Ampere => -2, others => 0);
+
+    -- The type for the derived quantity electrical resistance.
+    subtype Electrical_Resistance is SI_Type with Dimension =>
+      (Symbol => "Ω", Kilogram => 1, Meter => 2, Second => -3, Ampere => -2, others => 0);
+    
+    -- The type for the derived quantity electrical potential difference.
+    subtype Electrical_Potential_Difference is SI_Type with Dimension =>
+      (Symbol => 'V', Kilogram => 1, Meter => 2, Second => -3, Ampere => -1, others => 0);
+    
+    -- The type for the derived quantity electromotive force.
+    subtype Electromotive_Force is SI_Type with Dimension =>
+      (Symbol => 'V', Kilogram => 1, Meter => 2, Second => -3, Ampere => -1, others => 0);
+
+    -- The type for the derived quantity equivalent dose.
+    subtype Equivalent_Dose is SI_Type with Dimension =>
+      (Symbol => "Sv", Meter => 2, Second => -2, others => 0);
+
+    -- The type for the derived quantity energy.
+    subtype Energy is SI_Type with Dimension =>
+      (Symbol => 'J', Kilogram => 1, Meter => 2, Second => -2, others => 0);
+
+    -- The type for the derived quantity force.
+    subtype Force is SI_Type with Dimension =>
+      (Symbol => 'N', Kilogram => 1, Meter => 1, Second => -2, others => 0);
+    
+    -- The type for the derived quantity frequency.
+    subtype Frequency is SI_Type with Dimension =>
+      (Symbol => "Hz", Second => -1, others => 0);
+
+    -- The type for the derived quantity heat.
+    subtype Heat is SI_Type with Dimension =>
+      (Symbol => 'J', Kilogram => 1, Meter => 2, Second => -2, others => 0);
+
+    -- The type for the derived quantity illuminance.
+    subtype Illuminance is SI_Type with Dimension =>
+      (Symbol => "lm", Candela => 1, Meter => -2, others => 0);
+
+    -- The type for the derived quantity impedance.
+    subtype Impedance is SI_Type with Dimension =>
+      (Symbol => "Ω", Kilogram => 1, Meter => 2, Second => -3, Ampere => -2, others => 0);
+
+    -- The type for the derived quantity luminous flux.
+    subtype Luminous_Flux is SI_Type with Dimension =>
+      (Symbol => "lm", Candela => 1, others => 0);
+    
+    -- The type for the derived quantity magnetic flux.
+    subtype Magnetic_Flux is SI_Type with Dimension =>
+      (Symbol => "Wb", Kilogram => 1, Meter => 2, Second => -2, Ampere => -1, others => 0);
+    
+    -- The type for the derived quantity magnetic flux density.
+    subtype Magnetic_Flux_Density is SI_Type with Dimension =>
+      (Symbol => "Wb", Kilogram => 1, Second => -2, Ampere => -1, others => 0);
+
+    -- The type for the derived quantity magnetic induction.
+    subtype Magnetic_Induction is SI_Type with Dimension =>
+      (Symbol => "Wb", Kilogram => 1, Second => -2, Ampere => -1, others => 0);
+
+    -- The type for the derived quantity power.
+    subtype Power is SI_Type with Dimension =>
+      (Symbol => 'W', Kilogram => 1, Meter => 2, Second => -3, others => 0);
+
+    -- The type for the derived quantity pressure.
+    subtype Pressure is SI_Type with Dimension =>
+      (Symbol => "Pa", Kilogram => 1, Meter => -1, Second => -2, others => 0);
+    
+    -- The type for the derived quantity quantity of electricity.
+    subtype Quantity_Of_Electricity is SI_Type with Dimension =>
+      (Symbol => 'C', Second => 1, Ampere => 1, others => 0);
+    
+    -- The type for the derived quantity radiant flux.
+    subtype Radiant_Flux is SI_Type with Dimension =>
+      (Symbol => 'W', Kilogram => 1, Meter => 2, Second => -3, others => 0);
+    
+    -- The type for the derived quantity radioactivity.
+    subtype Radioactivity is SI_Type with Dimension =>
+      (Symbol => "Bq", Second => -1, others => 0);
+
+    -- The type for the derived quantity reactance.
+    subtype Reactance is SI_Type with Dimension =>
+      (Symbol => "Ω", Kilogram => 1, Meter => 2, Second => -3, Ampere => -2, others => 0);
+
+    -- The type for the derived quantity solid angle.
+    subtype Solid_Angle is SI_Type with Dimension =>
+      (Symbol => "sr", others => 0);
+    
+    -- The type for the derived quantity speed.
+    subtype Speed is SI_Type with Dimension =>
+      (Symbol => "m/s", Meter => 1, Second => -1, others => 0);
+
+    -- The type for the derived quantity stress.
+    subtype Stress is SI_Type with Dimension =>
+      (Symbol => "Pa", Kilogram => 1, Meter => -1, Second => -2, others => 0);
+    
+    -- The type for the derived quantity voltage.
+    subtype Voltage is SI_Type with Dimension =>
+      (Symbol => 'V', Kilogram => 1, Meter => 2, Second => -3, Ampere => -1, others => 0);
     
     -- The type for the derived quantity volume.
     subtype Volume is SI_Type with Dimension => 
       (Symbol => 'm', Meter => 3, others => 0);
-        
+
+    -- The type for the derived quantity weight.
+    subtype Weight is SI_Type with Dimension =>
+      (Symbol => 'N', Kilogram => 1, Meter => 1, Second => -2, others => 0);
     
+    -- The type for the derived quantity work.
+    subtype Work is SI_Type with Dimension =>
+      (Symbol => 'J', Kilogram => 1, Meter => 2, Second => -2, others => 0);
+
+    
+
     pragma Warnings (Off, "*assumed to be*");
     
     Yoctometer : constant Length := 1.0E-24;
