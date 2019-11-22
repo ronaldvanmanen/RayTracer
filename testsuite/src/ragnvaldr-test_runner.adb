@@ -17,11 +17,16 @@
 
 with AUnit.Reporter.Text;
 with AUnit.Run;
-with Ragnvaldr.Raytracer.Test.Suite; use Ragnvaldr.Raytracer.Test.Suite;
+with Ragnvaldr.Composite_Test_Suite; use Ragnvaldr.Composite_Test_Suite;
 
-procedure Ragnvaldr.Raytracer.Test_Runner is
+procedure Ragnvaldr.Test_Runner is
+
     procedure Runner is new AUnit.Run.Test_Runner (Suite);
+
     Reporter : AUnit.Reporter.Text.Text_Reporter;
-begin
+
+begin -- Ragnvaldr.Test_Runner
+
     Runner (Reporter);
-end Ragnvaldr.Raytracer.Test_Runner;
+
+end Ragnvaldr.Test_Runner;
