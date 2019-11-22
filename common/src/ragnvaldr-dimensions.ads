@@ -63,7 +63,6 @@ package Ragnvaldr.Dimensions is
     -- The type for the base quantity time.
     subtype Time is SI_Type with Dimension => 
       (Symbol => 's', Second => 1, others => 0);
-
     
     -- The type for the derived quantity absorbed dose.
     subtype Absorbed_Dose is SI_Type with Dimension =>
@@ -193,6 +192,10 @@ package Ragnvaldr.Dimensions is
     subtype Stress is SI_Type with Dimension =>
       (Symbol => "Pa", Kilogram => 1, Meter => -1, Second => -2, others => 0);
     
+    -- The type for the derived quantity velocity.
+    subtype Velocity is SI_Type with Dimension =>
+      (Symbol => "m/s", Meter => 1, Second => -1, others => 0);
+    
     -- The type for the derived quantity voltage.
     subtype Voltage is SI_Type with Dimension =>
       (Symbol => 'V', Kilogram => 1, Meter => 2, Second => -3, Ampere => -1, others => 0);
@@ -208,8 +211,6 @@ package Ragnvaldr.Dimensions is
     -- The type for the derived quantity work.
     subtype Work is SI_Type with Dimension =>
       (Symbol => 'J', Kilogram => 1, Meter => 2, Second => -2, others => 0);
-
-    
 
     pragma Warnings (Off, "*assumed to be*");
     
