@@ -23,7 +23,9 @@ package Ragnvaldr.Numerics is
 
     subtype Length is Float;
 
-    type Vector is new Real_Vector (1..3);
+    subtype Axis is Integer range 1 .. 3;
+
+    type Vector is new Real_Vector (Axis);
 
     type Euler_Vector is record
         Axis : Vector;
