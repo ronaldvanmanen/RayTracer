@@ -17,7 +17,7 @@
 
 with AUnit.Reporter.Text;
 with AUnit.Run;
-with Ragnvaldr.Composite_Test_Suite; use Ragnvaldr.Composite_Test_Suite;
+with Ragnvaldr.Tests; use Ragnvaldr.Tests;
 
 procedure Ragnvaldr.Test_Runner is
 

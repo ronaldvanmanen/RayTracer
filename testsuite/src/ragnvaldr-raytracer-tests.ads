@@ -15,21 +15,12 @@
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-with AUnit.Test_Fixtures;
+with AUnit.Test_Suites; use AUnit.Test_Suites;
 
-package Ragnvaldr.Raytracer.Test
+package Ragnvaldr.Raytracer.Tests
   with
     SPARK_Mode => Off
   is
+    function Suite return Access_Test_Suite;
 
-    type Test is new AUnit.Test_Fixtures.Test_Fixture with null record;
-
-    procedure Test_Intersects_Ray_Outside_And_Points_Towards(T : in out Test);
-
-    procedure Test_Intersects_Ray_Outside_And_Points_Away(T : in out Test);
-
-    procedure Test_Intersects_Ray_Inside(T : in out Test);
-
-    procedure Test_Intersects_Ray_Outside_And_Points_Along(T : in out Test);
-
-end Ragnvaldr.Raytracer.Test;
+end Ragnvaldr.Raytracer.Tests;

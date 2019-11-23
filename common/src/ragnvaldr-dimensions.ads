@@ -15,16 +15,12 @@
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-generic
-
-    type Real is digits <>;
-    
 package Ragnvaldr.Dimensions is
 
     pragma Pure (Dimensions);
     
     -- The base type for all quantities as defined by International System of Quantities (ISQ).
-    type SI_Type is new Real with
+    type SI_Type is new Float with
       Dimension_System => 
         (
          (Unit_Name => Meter,    Unit_Symbol => 'm',   Dim_Symbol => 'L'),

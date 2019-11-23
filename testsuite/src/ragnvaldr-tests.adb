@@ -15,23 +15,21 @@
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-with AUnit.Test_Caller;
+with Ragnvaldr.Dimensions.Tests;
+with Ragnvaldr.Raytracer.Tests;
+with AUnit.Tests;
 
-package body Ragnvaldr.Dimensions.Test.Suite is
+package body Ragnvaldr.Tests is
+    
+   --  Here we dynamically allocate the suite using the New_Suite function
+   --  We use the 'Suite' functions provided in This_Suite and That_Suite
+   --  We also use Ada 2005 distinguished receiver notation to call Add_Test
 
-    package Caller is new AUnit.Test_Caller (Ragnvaldr.Dimensions.Test.Test);
-
-    function Suite return Access_Test_Suite is
-
-        Ret : constant Access_Test_Suite := new Test_Suite;
-
-    begin
-
-        Ret.Add_Test
-          (Caller.Create
-             ("Test_Free_Fall_Problem", Test_Free_Fall_Problem'Access));
-
-        return Ret;
-    end Suite;
-
-end Ragnvaldr.Dimensions.Test.Suite;
+   function Suite return Access_Test_Suite is
+      Result : Access_Test_Suite := AUnit.Test_Suites.New_Suite;
+   begin
+      Result.Add_Test (Ragnvaldr.Dimensions.Tests.Suite);
+      Result.Add_Test (Ragnvaldr.Raytracer.Tests.Suite);
+      return Result;
+   end Suite;
+end Ragnvaldr.Tests;

@@ -15,12 +15,10 @@
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-with AUnit.Test_Fixtures;
+with AUnit.Test_Suites; use AUnit.Test_Suites;
 
-package Ragnvaldr.Dimensions.Test with SPARK_Mode => Off is
+package Ragnvaldr.Dimensions.Tests with SPARK_Mode => Off is
 
-    type Test is new AUnit.Test_Fixtures.Test_Fixture with null record;
+    function Suite return Access_Test_Suite;
 
-    procedure Test_Free_Fall_Problem(T : in out Test);
-
-end Ragnvaldr.Dimensions.Test;
+end Ragnvaldr.Dimensions.Tests;

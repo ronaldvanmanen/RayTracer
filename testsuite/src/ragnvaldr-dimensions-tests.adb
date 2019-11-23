@@ -16,12 +16,16 @@
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 with AUnit.Assertions; use AUnit.Assertions;
+with AUnit.Test_Caller;
+with AUnit.Test_Fixtures;
 with Ada.Exceptions;
 with Ragnvaldr.Dimensions;
   
-package body Ragnvaldr.Dimensions.Test is
+package body Ragnvaldr.Dimensions.Tests is
 
-    procedure Test_Free_Fall_Problem (T : in out Test) is
+    type Test_Fixture is new AUnit.Test_Fixtures.Test_Fixture with null record;
+
+    procedure Test_Free_Fall_Problem (T : in out Test_Fixture) is
         
         pragma Unreferenced(T);
         
@@ -35,7 +39,17 @@ package body Ragnvaldr.Dimensions.Test is
            Actual_Distance in 490.5000 * Meter .. 490.5001  * Meter, 
            "The expected distance traveled in 10 s of free fall is 490.50 m"
           );
-    
     end Test_Free_Fall_Problem;
 
-end Ragnvaldr.Dimensions.Test;
+    package Caller is new AUnit.Test_Caller (Test_Fixture);
+
+    function Suite return Access_Test_Suite is
+        Ret : constant Access_Test_Suite := new Test_Suite;
+    begin -- Suite
+        Ret.Add_Test
+          (Caller.Create
+             ("Test_Free_Fall_Problem", Test_Free_Fall_Problem'Access));
+        return Ret;
+    end Suite;
+
+end Ragnvaldr.Dimensions.Tests;

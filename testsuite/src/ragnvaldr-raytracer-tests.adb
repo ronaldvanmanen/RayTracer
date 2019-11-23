@@ -16,12 +16,16 @@
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 with AUnit.Assertions; use AUnit.Assertions;
+with AUnit.Test_Caller;
+with AUnit.Test_Fixtures;
 with Ada.Exceptions;
 with Ragnvaldr.Raytracer;
   
-package body Ragnvaldr.Raytracer.Test is
+package body Ragnvaldr.Raytracer.Tests is
 
-    procedure Test_Intersects_Ray_Outside_And_Points_Towards (T : in out Test) is
+    type Test_Fixture is new AUnit.Test_Fixtures.Test_Fixture with null record;
+
+    procedure Test_Intersects_Ray_Outside_And_Points_Towards (T : in out Test_Fixture) is
         
         pragma Unreferenced(T);
 
@@ -49,7 +53,7 @@ package body Ragnvaldr.Raytracer.Test is
 
     end Test_Intersects_Ray_Outside_And_Points_Towards;
 
-    procedure Test_Intersects_Ray_Outside_And_Points_Away (T : in out Test) is
+    procedure Test_Intersects_Ray_Outside_And_Points_Away (T : in out Test_Fixture) is
         
         pragma Unreferenced(T);
 
@@ -67,7 +71,7 @@ package body Ragnvaldr.Raytracer.Test is
         
     end Test_Intersects_Ray_Outside_And_Points_Away;
     
-    procedure Test_Intersects_Ray_Inside(T : in out Test) is
+    procedure Test_Intersects_Ray_Inside(T : in out Test_Fixture) is
         
         pragma Unreferenced(T);
 
@@ -91,7 +95,7 @@ package body Ragnvaldr.Raytracer.Test is
           
     end Test_Intersects_Ray_Inside;
       
-    procedure Test_Intersects_Ray_Outside_And_Points_Along(T : in out Test) is
+    procedure Test_Intersects_Ray_Outside_And_Points_Along(T : in out Test_Fixture) is
         
         pragma Unreferenced(T);
 
@@ -108,5 +112,29 @@ package body Ragnvaldr.Raytracer.Test is
         Assert(Actual_Hits'Length = 0, "Expected the ray to miss the sphere");
         
     end Test_Intersects_Ray_Outside_And_Points_Along;
+        
+    package Caller is new AUnit.Test_Caller (Test_Fixture);
 
-end Ragnvaldr.Raytracer.Test;
+    function Suite return Access_Test_Suite is
+        Ret : constant Access_Test_Suite := new Test_Suite;
+    begin -- Suite
+        Ret.Add_Test
+          (Caller.Create
+             ("Test_Intersects_Ray_Outside_And_Points_Towards",
+              Test_Intersects_Ray_Outside_And_Points_Towards'Access));
+        Ret.Add_Test
+          (Caller.Create
+             ("Test_Intersects_Ray_Outside_And_Points_Away",
+              Test_Intersects_Ray_Outside_And_Points_Away'Access));
+        Ret.Add_Test
+          (Caller.Create(
+           "Test_Intersects_Ray_Inside",
+           Test_Intersects_Ray_Inside'Access));
+        Ret.Add_Test
+          (Caller.Create
+             ("Test_Intersects_Ray_Outside_And_Points_Along",
+              Test_Intersects_Ray_Outside_And_Points_Along'Access));
+        return Ret;
+    end Suite;
+
+end Ragnvaldr.Raytracer.Tests;
