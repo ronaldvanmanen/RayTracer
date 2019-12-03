@@ -20,7 +20,7 @@ package Ragnvaldr.Dimensions is
     pragma Pure (Dimensions);
     
     -- The base type for all quantities as defined by International System of Quantities (ISQ).
-    type SI_Type is new Float with
+    type Scalar is new Float with
       Dimension_System => 
         (
          (Unit_Name => Meter,    Unit_Symbol => 'm',   Dim_Symbol => 'L'),
@@ -31,184 +31,229 @@ package Ragnvaldr.Dimensions is
          (Unit_Name => Mole,     Unit_Symbol => "mol", Dim_Symbol => 'N'),
          (Unit_Name => Candela,  Unit_Symbol => "cd",  Dim_Symbol => 'J')
         );
-
+    
     -- The type for the base quantity amount of substance.
-    subtype Amount_Of_Substance is SI_Type with Dimension =>
+    subtype Amount_Of_Substance is Scalar with Dimension =>
       (Symbol => "mol", Mole => 1, others => 0);
     
     -- The type for the base quantity electric current.
-    subtype Electric_Current is SI_Type with Dimension => 
+    subtype Electric_Current is Scalar with Dimension => 
       (Symbol => 'A', Ampere => 1, others => 0);
     
     -- The type for the base quantity length.
-    subtype Length is SI_Type with Dimension => 
+    subtype Length is Scalar with Dimension => 
       (Symbol => 'm', Meter => 1, others => 0);
 
     -- The type for the base quantity luminous intensity.
-    subtype Luminous_Intensity is SI_Type with Dimension =>
+    subtype Luminous_Intensity is Scalar with Dimension =>
       (Symbol => "cd", Candela => 1, others => 0);
     
     -- The type for the base quantity mass.
-    subtype Mass is SI_Type with Dimension =>
+    subtype Mass is Scalar with Dimension =>
       (Symbol => "kg", Kilogram => 1, others => 0);
     
     -- The type for the base quantity thermodynamic temperature.
-    subtype Thermodynamic_Temperature is SI_Type with Dimension =>
+    subtype Thermodynamic_Temperature is Scalar with Dimension =>
       (Symbol => 'K', Kelvin => 1, others => 0);
     
     -- The type for the base quantity time.
-    subtype Time is SI_Type with Dimension => 
+    subtype Time is Scalar with Dimension => 
       (Symbol => 's', Second => 1, others => 0);
     
     -- The type for the derived quantity absorbed dose.
-    subtype Absorbed_Dose is SI_Type with Dimension =>
+    subtype Absorbed_Dose is Scalar with Dimension =>
       (Symbol => "Gy", Meter => 2, Second => -2, others => 0);
     
     -- The type for the derived quantity angle.
-    subtype Angle is SI_Type with Dimension =>
+    subtype Angle is Scalar with Dimension =>
       (Symbol => "rad", others => 0);
              
     -- The type for the derived quantity acceleration.
-    subtype Acceleration is SI_Type with Dimension =>
+    subtype Acceleration is Scalar with Dimension =>
       (Symbol => "m/s^2", Meter => 1, Second => -2, others => 0);
     
     -- The type for the derived quantity area.
-    subtype Area is SI_Type with Dimension => 
+    subtype Area is Scalar with Dimension => 
       (Symbol => 'm', Meter => 2, others => 0);
 
     -- The type for the derived quantity catalytic activity.
-    subtype Catalytic_Activity is SI_Type with Dimension =>
+    subtype Catalytic_Activity is Scalar with Dimension =>
       (Symbol => "kat", Second => -1, Mole => 1, others => 0);
 
     -- The type for the derived quantity electric charge.
-    subtype Electric_Charge is SI_Type with Dimension =>
+    subtype Electric_Charge is Scalar with Dimension =>
       (Symbol => 'C', Second => 1, Ampere => 1, others => 0);
 
     -- The type for the derived quantity electrical capacitance.
-    subtype Electrical_Capacitance is SI_Type with Dimension =>
+    subtype Electrical_Capacitance is Scalar with Dimension =>
       (Symbol => 'F', Kilogram => -1, Meter => -2, Second => 4, Ampere => 2, others => 0);
 
     -- The type for the derived quantity electrical conductance.
-    subtype Electrical_Conductance is SI_Type with Dimension =>
+    subtype Electrical_Conductance is Scalar with Dimension =>
       (Symbol => "S", Kilogram => -1, Meter => -2, Second => 3, Ampere => 2, others => 0);
 
     -- The type for the derived quantity electrical inductance.
-    subtype Electrical_Inductance is SI_Type with Dimension =>
+    subtype Electrical_Inductance is Scalar with Dimension =>
       (Symbol => "S", Kilogram => 1, Meter => 2, Second => -2, Ampere => -2, others => 0);
 
     -- The type for the derived quantity electrical resistance.
-    subtype Electrical_Resistance is SI_Type with Dimension =>
+    subtype Electrical_Resistance is Scalar with Dimension =>
       (Symbol => "Ω", Kilogram => 1, Meter => 2, Second => -3, Ampere => -2, others => 0);
     
     -- The type for the derived quantity electrical potential difference.
-    subtype Electrical_Potential_Difference is SI_Type with Dimension =>
+    subtype Electrical_Potential_Difference is Scalar with Dimension =>
       (Symbol => 'V', Kilogram => 1, Meter => 2, Second => -3, Ampere => -1, others => 0);
     
     -- The type for the derived quantity electromotive force.
-    subtype Electromotive_Force is SI_Type with Dimension =>
+    subtype Electromotive_Force is Scalar with Dimension =>
       (Symbol => 'V', Kilogram => 1, Meter => 2, Second => -3, Ampere => -1, others => 0);
 
     -- The type for the derived quantity equivalent dose.
-    subtype Equivalent_Dose is SI_Type with Dimension =>
+    subtype Equivalent_Dose is Scalar with Dimension =>
       (Symbol => "Sv", Meter => 2, Second => -2, others => 0);
 
     -- The type for the derived quantity energy.
-    subtype Energy is SI_Type with Dimension =>
+    subtype Energy is Scalar with Dimension =>
       (Symbol => 'J', Kilogram => 1, Meter => 2, Second => -2, others => 0);
 
     -- The type for the derived quantity force.
-    subtype Force is SI_Type with Dimension =>
+    subtype Force is Scalar with Dimension =>
       (Symbol => 'N', Kilogram => 1, Meter => 1, Second => -2, others => 0);
     
     -- The type for the derived quantity frequency.
-    subtype Frequency is SI_Type with Dimension =>
+    subtype Frequency is Scalar with Dimension =>
       (Symbol => "Hz", Second => -1, others => 0);
 
     -- The type for the derived quantity heat.
-    subtype Heat is SI_Type with Dimension =>
+    subtype Heat is Scalar with Dimension =>
       (Symbol => 'J', Kilogram => 1, Meter => 2, Second => -2, others => 0);
 
     -- The type for the derived quantity illuminance.
-    subtype Illuminance is SI_Type with Dimension =>
+    subtype Illuminance is Scalar with Dimension =>
       (Symbol => "lm", Candela => 1, Meter => -2, others => 0);
 
     -- The type for the derived quantity impedance.
-    subtype Impedance is SI_Type with Dimension =>
+    subtype Impedance is Scalar with Dimension =>
       (Symbol => "Ω", Kilogram => 1, Meter => 2, Second => -3, Ampere => -2, others => 0);
 
     -- The type for the derived quantity luminous flux.
-    subtype Luminous_Flux is SI_Type with Dimension =>
+    subtype Luminous_Flux is Scalar with Dimension =>
       (Symbol => "lm", Candela => 1, others => 0);
     
     -- The type for the derived quantity magnetic flux.
-    subtype Magnetic_Flux is SI_Type with Dimension =>
+    subtype Magnetic_Flux is Scalar with Dimension =>
       (Symbol => "Wb", Kilogram => 1, Meter => 2, Second => -2, Ampere => -1, others => 0);
     
     -- The type for the derived quantity magnetic flux density.
-    subtype Magnetic_Flux_Density is SI_Type with Dimension =>
+    subtype Magnetic_Flux_Density is Scalar with Dimension =>
       (Symbol => "Wb", Kilogram => 1, Second => -2, Ampere => -1, others => 0);
 
     -- The type for the derived quantity magnetic induction.
-    subtype Magnetic_Induction is SI_Type with Dimension =>
+    subtype Magnetic_Induction is Scalar with Dimension =>
       (Symbol => "Wb", Kilogram => 1, Second => -2, Ampere => -1, others => 0);
 
     -- The type for the derived quantity power.
-    subtype Power is SI_Type with Dimension =>
+    subtype Power is Scalar with Dimension =>
       (Symbol => 'W', Kilogram => 1, Meter => 2, Second => -3, others => 0);
 
     -- The type for the derived quantity pressure.
-    subtype Pressure is SI_Type with Dimension =>
+    subtype Pressure is Scalar with Dimension =>
       (Symbol => "Pa", Kilogram => 1, Meter => -1, Second => -2, others => 0);
     
     -- The type for the derived quantity quantity of electricity.
-    subtype Quantity_Of_Electricity is SI_Type with Dimension =>
+    subtype Quantity_Of_Electricity is Scalar with Dimension =>
       (Symbol => 'C', Second => 1, Ampere => 1, others => 0);
     
     -- The type for the derived quantity radiant flux.
-    subtype Radiant_Flux is SI_Type with Dimension =>
+    subtype Radiant_Flux is Scalar with Dimension =>
       (Symbol => 'W', Kilogram => 1, Meter => 2, Second => -3, others => 0);
     
     -- The type for the derived quantity radioactivity.
-    subtype Radioactivity is SI_Type with Dimension =>
+    subtype Radioactivity is Scalar with Dimension =>
       (Symbol => "Bq", Second => -1, others => 0);
 
     -- The type for the derived quantity reactance.
-    subtype Reactance is SI_Type with Dimension =>
+    subtype Reactance is Scalar with Dimension =>
       (Symbol => "Ω", Kilogram => 1, Meter => 2, Second => -3, Ampere => -2, others => 0);
 
     -- The type for the derived quantity solid angle.
-    subtype Solid_Angle is SI_Type with Dimension =>
+    subtype Solid_Angle is Scalar with Dimension =>
       (Symbol => "sr", others => 0);
     
     -- The type for the derived quantity speed.
-    subtype Speed is SI_Type with Dimension =>
+    subtype Speed is Scalar with Dimension =>
       (Symbol => "m/s", Meter => 1, Second => -1, others => 0);
 
     -- The type for the derived quantity stress.
-    subtype Stress is SI_Type with Dimension =>
+    subtype Stress is Scalar with Dimension =>
       (Symbol => "Pa", Kilogram => 1, Meter => -1, Second => -2, others => 0);
     
     -- The type for the derived quantity velocity.
-    subtype Velocity is SI_Type with Dimension =>
+    subtype Velocity is Scalar with Dimension =>
       (Symbol => "m/s", Meter => 1, Second => -1, others => 0);
     
     -- The type for the derived quantity voltage.
-    subtype Voltage is SI_Type with Dimension =>
+    subtype Voltage is Scalar with Dimension =>
       (Symbol => 'V', Kilogram => 1, Meter => 2, Second => -3, Ampere => -1, others => 0);
     
     -- The type for the derived quantity volume.
-    subtype Volume is SI_Type with Dimension => 
+    subtype Volume is Scalar with Dimension => 
       (Symbol => 'm', Meter => 3, others => 0);
 
     -- The type for the derived quantity weight.
-    subtype Weight is SI_Type with Dimension =>
+    subtype Weight is Scalar with Dimension =>
       (Symbol => 'N', Kilogram => 1, Meter => 1, Second => -2, others => 0);
     
     -- The type for the derived quantity work.
-    subtype Work is SI_Type with Dimension =>
+    subtype Work is Scalar with Dimension =>
       (Symbol => 'J', Kilogram => 1, Meter => 2, Second => -2, others => 0);
-
+        
+    
     pragma Warnings (Off, "*assumed to be*");
+
+    Yoctomole : constant Amount_Of_Substance := 1.0E-24;
+    Zeptomole : constant Amount_Of_Substance := 1.0E-21;
+    Attomole  : constant Amount_Of_Substance := 1.0E-18;
+    Femtomole : constant Amount_Of_Substance := 1.0E-15;
+    Picomole  : constant Amount_Of_Substance := 1.0E-12;
+    Nanomole  : constant Amount_Of_Substance := 1.0E-09;
+    Micromole : constant Amount_Of_Substance := 1.0E-06;
+    Millimole : constant Amount_Of_Substance := 1.0E-03;
+    Centimole : constant Amount_Of_Substance := 1.0E-02;
+    Decimole  : constant Amount_Of_Substance := 1.0E-01;
+    Mole      : constant Amount_Of_Substance := 1.0;
+    Decamole  : constant Amount_Of_Substance := 1.0E+01;
+    Hectomole : constant Amount_Of_Substance := 1.0E+02;
+    Kilomole  : constant Amount_Of_Substance := 1.0E+03;
+    Megamole  : constant Amount_Of_Substance := 1.0E+06;
+    Gigamole  : constant Amount_Of_Substance := 1.0E+09;
+    Teramole  : constant Amount_Of_Substance := 1.0E+12;
+    Petamole  : constant Amount_Of_Substance := 1.0E+15;
+    Examole   : constant Amount_Of_Substance := 1.0E+18;
+    Zettamole : constant Amount_Of_Substance := 1.0E+21;
+    Yottamole : constant Amount_Of_Substance := 1.0E+24;
+    
+    Yoctoampere : constant Electric_Current := 1.0E-24;
+    Zeptoampere : constant Electric_Current := 1.0E-21;
+    Attoampere  : constant Electric_Current := 1.0E-18;
+    Femtoampere : constant Electric_Current := 1.0E-15;
+    Picoampere  : constant Electric_Current := 1.0E-12;
+    Nanoampere  : constant Electric_Current := 1.0E-09;
+    Microampere : constant Electric_Current := 1.0E-06;
+    Milliampere : constant Electric_Current := 1.0E-03;
+    Centiampere : constant Electric_Current := 1.0E-02;
+    Deciampere  : constant Electric_Current := 1.0E-01;
+    Ampere      : constant Electric_Current := 1.0;
+    Decaampere  : constant Electric_Current := 1.0E+01;
+    Hectoampere : constant Electric_Current := 1.0E+02;
+    Kiloampere  : constant Electric_Current := 1.0E+03;
+    Megaampere  : constant Electric_Current := 1.0E+06;
+    Gigaampere  : constant Electric_Current := 1.0E+09;
+    Teraampere  : constant Electric_Current := 1.0E+12;
+    Petaampere  : constant Electric_Current := 1.0E+15;
+    Exaampere   : constant Electric_Current := 1.0E+18;
+    Zettaampere : constant Electric_Current := 1.0E+21;
+    Yottaampere : constant Electric_Current := 1.0E+24;
     
     Yoctometer : constant Length := 1.0E-24;
     Zeptometer : constant Length := 1.0E-21;
@@ -232,6 +277,28 @@ package Ragnvaldr.Dimensions is
     Zettameter : constant Length := 1.0E+21;
     Yottameter : constant Length := 1.0E+24;
 
+    Yoctocandela : constant Luminous_Intensity := 1.0E-24;
+    Zeptocandela : constant Luminous_Intensity := 1.0E-21;
+    Attocandela  : constant Luminous_Intensity := 1.0E-18;
+    Femtocandela : constant Luminous_Intensity := 1.0E-15;
+    Picocandela  : constant Luminous_Intensity := 1.0E-12;
+    Nanocandela  : constant Luminous_Intensity := 1.0E-09;
+    Microcandela : constant Luminous_Intensity := 1.0E-06;
+    Millicandela : constant Luminous_Intensity := 1.0E-03;
+    Centicandela : constant Luminous_Intensity := 1.0E-02;
+    Decicandela  : constant Luminous_Intensity := 1.0E-01;
+    Candela      : constant Luminous_Intensity := 1.0;
+    Decacandela  : constant Luminous_Intensity := 1.0E+01;
+    Hectocandela : constant Luminous_Intensity := 1.0E+02;
+    Kilocandela  : constant Luminous_Intensity := 1.0E+03;
+    Megacandela  : constant Luminous_Intensity := 1.0E+06;
+    Gigacandela  : constant Luminous_Intensity := 1.0E+09;
+    Teracandela  : constant Luminous_Intensity := 1.0E+12;
+    Petacandela  : constant Luminous_Intensity := 1.0E+15;
+    Exacandela   : constant Luminous_Intensity := 1.0E+18;
+    Zettacandela : constant Luminous_Intensity := 1.0E+21;
+    Yottacandela : constant Luminous_Intensity := 1.0E+24;
+
     Yoctogram : constant Mass := 1.0E-24;
     Zeptogram : constant Mass := 1.0E-21;
     Attogram  : constant Mass := 1.0E-18;
@@ -253,6 +320,28 @@ package Ragnvaldr.Dimensions is
     Exagram   : constant Mass := 1.0E+18;
     Zettagram : constant Mass := 1.0E+21;
     Yottagram : constant Mass := 1.0E+24;
+
+    Yoctokelvin : constant Thermodynamic_Temperature := 1.0E-24;
+    Zeptokelvin : constant Thermodynamic_Temperature := 1.0E-21;
+    Attokelvin  : constant Thermodynamic_Temperature := 1.0E-18;
+    Femtokelvin : constant Thermodynamic_Temperature := 1.0E-15;
+    Picokelvin  : constant Thermodynamic_Temperature := 1.0E-12;
+    Nanokelvin  : constant Thermodynamic_Temperature := 1.0E-09;
+    Microkelvin : constant Thermodynamic_Temperature := 1.0E-06;
+    Millikelvin : constant Thermodynamic_Temperature := 1.0E-03;
+    Centikelvin : constant Thermodynamic_Temperature := 1.0E-02;
+    Decikelvin  : constant Thermodynamic_Temperature := 1.0E-01;
+    Kelvin      : constant Thermodynamic_Temperature := 1.0;
+    Decakelvin  : constant Thermodynamic_Temperature := 1.0E+01;
+    Hectokelvin : constant Thermodynamic_Temperature := 1.0E+02;
+    Kilokelvin  : constant Thermodynamic_Temperature := 1.0E+03;
+    Megakelvin  : constant Thermodynamic_Temperature := 1.0E+06;
+    Gigakelvin  : constant Thermodynamic_Temperature := 1.0E+09;
+    Terakelvin  : constant Thermodynamic_Temperature := 1.0E+12;
+    Petakelvin  : constant Thermodynamic_Temperature := 1.0E+15;
+    Exakelvin   : constant Thermodynamic_Temperature := 1.0E+18;
+    Zettakelvin : constant Thermodynamic_Temperature := 1.0E+21;
+    Yottakelvin : constant Thermodynamic_Temperature := 1.0E+24;
 
     Yoctosecond : constant Time := 1.0E-24;
     Zeptosecond : constant Time := 1.0E-21;
