@@ -17,6 +17,18 @@
 
 package body Ragnvaldr.Numerics.Generic_Array_Operations is
 
+    function Vector_Scalar_Elementwise_Operation
+      (Left  : Left_Vector;
+       Right : Right_Scalar) return Result_Vector
+    is
+    begin
+        return R : Result_Vector do
+            for J in R'Range loop
+                R (J) := Operation (Left (J), Right);
+            end loop;
+        end return;
+    end Vector_Scalar_Elementwise_Operation;   
+
     function Vector_Vector_Elementwise_Operation
       (Left  : Left_Vector;
        Right : Right_Vector) return Result_Vector
