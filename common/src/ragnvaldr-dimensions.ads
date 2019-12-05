@@ -364,6 +364,28 @@ package Ragnvaldr.Dimensions is
     Exasecond   : constant Time := 1.0E+18;
     Zettasecond : constant Time := 1.0E+21;
     Yottasecond : constant Time := 1.0E+24;
+    
+    radian      : constant Angle := 1.0;
+    steradian   : constant Solid_Angle := 1.0;
+    hertz       : constant Frequency := 1.0;
+    newton      : constant Force := 1.0;
+    pascal      : constant Pressure := 1.0;
+    joule       : constant Energy := 1.0;
+    watt        : constant Power := 1.0;
+    coulomb     : constant Electric_Charge := 1.0;
+    volt        : constant Voltage := 1.0;
+    farad       : constant Electrical_Capacitance := 1.0;
+    ohm         : constant Electrical_Resistance := 1.0;
+    siemens     : constant Electrical_Conductance := 1.0;
+    weber       : constant Magnetic_Flux := 1.0;
+    tesla       : constant Magnetic_Flux_Density := 1.0;
+    henry       : constant Electrical_Inductance := 1.0;
+    lumen       : constant Luminous_Flux := 1.0;
+    lux         : constant Illuminance := 1.0;
+    becquerel   : constant Radioactivity := 1.0;
+    gray        : constant Absorbed_Dose := 1.0;
+    sievert     : constant Equivalent_Dose := 1.0;
+    katal       : constant Catalytic_Activity := 1.0;
 
     pragma Warnings (On, "*assumed to be*");
     
