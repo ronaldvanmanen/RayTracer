@@ -16,8 +16,52 @@
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 with Ada.Numerics.Generic_Elementary_Functions;
+with Ragnvaldr.Numerics.Generic_Array_Operations; 
+use Ragnvaldr.Numerics.Generic_Array_Operations;
 
 package body Ragnvaldr.Numerics.Generic_Real_Vectors is
+    
+    package Instantiations is
+
+        function "*" is new
+          Vector_Scalar_Elementwise_Operation
+            (Left_Scalar   => Real,
+             Right_Scalar  => Real,
+             Result_Scalar => Real,
+             Left_Vector   => Real_Vector,
+             Result_Vector => Real_Vector,
+             Operation     => "*");
+        
+        function "/" is new
+          Vector_Scalar_Elementwise_Operation
+            (Left_Scalar   => Real,
+             Right_Scalar  => Real,
+             Result_Scalar => Real,
+             Left_Vector   => Real_Vector,
+             Result_Vector => Real_Vector,
+             Operation     => "/");
+        
+        function "+" is new
+          Vector_Vector_Elementwise_Operation
+            (Left_Scalar   => Real,
+             Right_Scalar  => Real,
+             Result_Scalar => Real,
+             Left_Vector   => Real_Vector,
+             Right_Vector  => Real_Vector,
+             Result_Vector => Real_Vector,
+             Operation     => "+");
+
+        function "-" is new
+          Vector_Vector_Elementwise_Operation
+            (Left_Scalar   => Real,
+             Right_Scalar  => Real,
+             Result_Scalar => Real,
+             Left_Vector   => Real_Vector,
+             Right_Vector  => Real_Vector,
+             Result_Vector => Real_Vector,
+             Operation     => "-");
+
+    end Instantiations;
     
     package Elementary_Functions is
       new Ada.Numerics.Generic_Elementary_Functions (Real'Base);
@@ -28,31 +72,13 @@ package body Ragnvaldr.Numerics.Generic_Real_Vectors is
         return Sqrt(Value * Value);
     end "abs";
       
-    function "*" (Left, Right : Real_Vector) return Real is
-        Result : Real := 0.0;
-    begin
-        for I in Left'Range loop
-            Result := Result + Real'(Left (I) * Right (I));
-        end loop;
-        return Result;
-    end "*";     
+    function "*" (Left, Right : Real_Vector) return Real renames
+      Instantiations."*";
 
-    function "+" (Left, Right : Real_Vector) return Real_Vector is
-    begin
-        return Result : Real_Vector do
-            for I in Result'Range loop
-                Result (I) := Left (I) + Right (I);
-            end loop;
-        end return;    
-    end "+";
+    function "+" (Left, Right : Real_Vector) return Real_Vector renames
+      Instantiations."+";
               
-    function "-" (Left, Right : Real_Vector) return Real_Vector is
-    begin
-        return Result : Real_Vector do
-            for I in Result'Range loop
-                Result (I) := Left (I) - Right (I);
-            end loop;
-        end return;    
-    end "-";
+    function "-" (Left, Right : Real_Vector) return Real_Vector renames
+      Instantiations."-";
 
 end Ragnvaldr.Numerics.Generic_Real_Vectors;

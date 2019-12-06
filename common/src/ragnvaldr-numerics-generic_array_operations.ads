@@ -23,9 +23,8 @@ package Ragnvaldr.Numerics.Generic_Array_Operations is
         type Left_Scalar is private;
         type Right_Scalar is private;
         type Result_Scalar is private;
-        type Index_Type is range<>;
-        type Left_Vector is array (Index_Type) of Left_Scalar;
-        type Result_Vector is array (Index_Type) of Result_Scalar;
+        type Left_Vector is array (Integer range<>) of Left_Scalar;
+        type Result_Vector is array (Integer range<>) of Result_Scalar;
         with function Operation
           (Left  : Left_Scalar;
            Right : Right_Scalar) return Result_Scalar;
@@ -37,10 +36,9 @@ package Ragnvaldr.Numerics.Generic_Array_Operations is
         type Left_Scalar is private;
         type Right_Scalar is private;
         type Result_Scalar is private;
-        type Index_Type is range<>;
-        type Left_Vector is array (Index_Type) of Left_Scalar;
-        type Right_Vector is array (Index_Type) of Right_Scalar;
-        type Result_Vector is array (Index_Type) of Result_Scalar;
+        type Left_Vector is array (Integer range<>) of Left_Scalar;
+        type Right_Vector is array (Integer range<>) of Right_Scalar;
+        type Result_Vector is array (Integer range<>) of Result_Scalar;
         with function Operation
           (Left  : Left_Scalar;
            Right : Right_Scalar) return Result_Scalar;

@@ -18,7 +18,6 @@
 with Ragnvaldr.Numerics.Generic_Real_Vectors;
 
 package Ragnvaldr.Numerics.Real_Vectors is
-  new Ragnvaldr.Numerics.Generic_Real_Vectors
-    (Real => Float, Index_Type => Integer);
+  new Ragnvaldr.Numerics.Generic_Real_Vectors (Real => Float);
 
 pragma Pure (Real_Vectors);

@@ -18,13 +18,12 @@
 generic
     
     type Real is digits <>;
-    type Index_Type is range <>;
     
 package Ragnvaldr.Numerics.Generic_Real_Vectors is
        
     pragma Pure (Generic_Real_Vectors);
 
-    type Real_Vector is array (Index_Type) of Real;
+    type Real_Vector is array (Integer range<>) of Real;
     
     function "abs" (Value : Real_Vector) return Real
       with
@@ -32,14 +31,18 @@ package Ragnvaldr.Numerics.Generic_Real_Vectors is
 
     function "*" (Left, Right : Real_Vector) return Real
       with
-        Global => null;
-        
+        Global => null,
+        Pre => Left'Length = Right'Length;
+            
     function "+" (Left, Right : Real_Vector) return Real_Vector
       with
-        Global => null;
+        Global => null,
+        Pre => Left'Length = Right'Length;
         
     function "-" (Left, Right : Real_Vector) return Real_Vector
       with
-        Global => null;
-
+        Global => null,
+        Pre => Left'Length = Right'Length,
+        Post => "-"'Result'Length = Left'Length and "-"'Result'Length = Right'Length;
+    
 end Ragnvaldr.Numerics.Generic_Real_Vectors;

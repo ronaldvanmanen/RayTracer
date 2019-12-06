@@ -22,7 +22,7 @@ package body Ragnvaldr.Numerics.Generic_Array_Operations is
        Right : Right_Scalar) return Result_Vector
     is
     begin
-        return R : Result_Vector do
+        return R : Result_Vector(Left'Range) do
             for J in R'Range loop
                 R (J) := Operation (Left (J), Right);
             end loop;
@@ -34,7 +34,7 @@ package body Ragnvaldr.Numerics.Generic_Array_Operations is
        Right : Right_Vector) return Result_Vector
     is
     begin
-        return R : Result_Vector do
+        return R : Result_Vector(Left'Range) do
             for J in R'Range loop
                 R (J) := Operation (Left (J), Right (J - R'First + Right'First));
             end loop;
