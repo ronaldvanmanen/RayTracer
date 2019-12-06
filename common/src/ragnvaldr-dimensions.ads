@@ -208,7 +208,6 @@ package Ragnvaldr.Dimensions is
     subtype Work is Scalar with Dimension =>
       (Symbol => 'J', Kilogram => 1, Meter => 2, Second => -2, others => 0);
         
-    
     pragma Warnings (Off, "*assumed to be*");
 
     Yoctomole : constant Amount_Of_Substance := 1.0E-24;
@@ -388,5 +387,17 @@ package Ragnvaldr.Dimensions is
     katal       : constant Catalytic_Activity := 1.0;
 
     pragma Warnings (On, "*assumed to be*");
+            
+    type Vector is array(Integer range <>) of Scalar;
+        
+    type Displacement is array(Integer range <>) of Length;
+    
+    function "*" (Left : Vector; Right : Length) return Displacement;
+    
+    function "/" (Left : Displacement; Right : Length) return Vector;
+    
+    function "+" (Left, Right : Displacement) return Displacement;
+    
+    function "-" (Left, Right : Displacement) return Displacement;
     
 end Ragnvaldr.Dimensions;
