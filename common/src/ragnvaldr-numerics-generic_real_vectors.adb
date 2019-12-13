@@ -20,7 +20,7 @@ with Ragnvaldr.Numerics.Generic_Array_Operations;
 use Ragnvaldr.Numerics.Generic_Array_Operations;
 
 package body Ragnvaldr.Numerics.Generic_Real_Vectors is
-    
+
     package Instantiations is
 
         function "*" is new
@@ -72,8 +72,14 @@ package body Ragnvaldr.Numerics.Generic_Real_Vectors is
         return Sqrt(Value * Value);
     end "abs";
       
-    function "*" (Left, Right : Real_Vector) return Real renames
-      Instantiations."*";
+    function "*" (Left, Right : Real_Vector) return Real is
+    begin
+        return Result : Real := 0.0 do
+            for J in Left'Range loop
+                Result := Result + Left (J) * Right (J - Left'First + Right'First);
+            end loop;
+        end return;
+    end "*";
 
     function "+" (Left, Right : Real_Vector) return Real_Vector renames
       Instantiations."+";

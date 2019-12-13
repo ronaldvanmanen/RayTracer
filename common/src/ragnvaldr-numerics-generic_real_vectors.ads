@@ -37,12 +37,13 @@ package Ragnvaldr.Numerics.Generic_Real_Vectors is
     function "+" (Left, Right : Real_Vector) return Real_Vector
       with
         Global => null,
-        Pre => Left'Length = Right'Length;
+        Pre => Left'Length = Right'Length,
+        Post => "+"'Result'Length = Left'Length;
         
     function "-" (Left, Right : Real_Vector) return Real_Vector
       with
         Global => null,
         Pre => Left'Length = Right'Length,
-        Post => "-"'Result'Length = Left'Length and "-"'Result'Length = Right'Length;
+        Post => "-"'Result'Length = Left'Length;
     
 end Ragnvaldr.Numerics.Generic_Real_Vectors;
