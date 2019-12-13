@@ -23,7 +23,7 @@ package body Ragnvaldr.Numerics.Generic_Array_Operations is
     is
     begin
         return R : Result_Vector(Left'Range) do
-            for J in R'Range loop
+            for J in Left'Range loop
                 R (J) := Operation (Left (J), Right);
             end loop;
         end return;
@@ -35,8 +35,8 @@ package body Ragnvaldr.Numerics.Generic_Array_Operations is
     is
     begin
         return R : Result_Vector(Left'Range) do
-            for J in R'Range loop
-                R (J) := Operation (Left (J), Right (J - R'First + Right'First));
+            for J in Left'Range loop
+                R (J) := Operation (Left (J), Right (J - Left'First + Right'First));
             end loop;
         end return;
     end Vector_Vector_Elementwise_Operation;   
