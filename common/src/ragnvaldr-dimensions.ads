@@ -392,10 +392,18 @@ package Ragnvaldr.Dimensions is
         
     type Displacement is array(Integer range <>) of Length;
     
+    function "abs" (Right : Vector) return Scalar;
+    
     function "*" (Left : Vector; Right : Length) return Displacement;
     
-    function "/" (Left : Displacement; Right : Length) return Vector;
+    function "*" (Left, Right : Displacement) return Area;
+
+    function "*" (Left : Displacement; Right : Vector) return Length;
     
+    function "/" (Left : Vector; Right : Scalar) return Vector;
+
+    function "/" (Left : Displacement; Right : Length) return Vector;
+           
     function "+" (Left, Right : Displacement) return Displacement;
     
     function "-" (Left, Right : Displacement) return Displacement;
