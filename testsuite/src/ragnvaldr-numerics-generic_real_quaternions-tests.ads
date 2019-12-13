@@ -17,10 +17,9 @@
 
 with AUnit.Test_Suites; use AUnit.Test_Suites;
 
-package Ragnvaldr.Raytracer.Tests
-  with
-    SPARK_Mode => Off
-  is
+generic
+package Ragnvaldr.Numerics.Generic_Real_Quaternions.Tests with SPARK_Mode => Off is
+    
     function Suite return Access_Test_Suite;
 
-end Ragnvaldr.Raytracer.Tests;
+end Ragnvaldr.Numerics.Generic_Real_Quaternions.Tests;

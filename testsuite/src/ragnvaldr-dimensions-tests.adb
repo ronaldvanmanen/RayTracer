@@ -36,7 +36,7 @@ package body Ragnvaldr.Dimensions.Tests is
     begin -- Test_Free_Fall_Problem
         Assert
           (
-           Actual_Distance in 490.5000 * Meter .. 490.5001  * Meter, 
+           Actual_Distance in 490.5000 * Meter .. 490.5001 * Meter, 
            "The expected distance traveled in 10 s of free fall is 490.50 m"
           );
     end Test_Free_Fall_Problem;

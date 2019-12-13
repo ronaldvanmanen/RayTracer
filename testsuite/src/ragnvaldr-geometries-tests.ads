@@ -15,23 +15,10 @@
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-with Ragnvaldr.Dimensions.Tests;
-with Ragnvaldr.Geometries.Tests;
-with Ragnvaldr.Numerics.Generic_Real_Quaternions.Tests;
-with AUnit.Tests;
+with AUnit.Test_Suites; use AUnit.Test_Suites;
 
-package body Ragnvaldr.Tests is
+package Ragnvaldr.Geometries.Tests with SPARK_Mode => Off is
 
-    package Real_Quaternions is 
-      new Ragnvaldr.Numerics.Generic_Real_Quaternions(Float);
-    package Real_Quaternions_Tests is new Real_Quaternions.Tests;
-    
-    function Suite return Access_Test_Suite is
-        Result : Access_Test_Suite := AUnit.Test_Suites.New_Suite;
-    begin
-        Result.Add_Test (Ragnvaldr.Dimensions.Tests.Suite);
-        Result.Add_Test (Ragnvaldr.Geometries.Tests.Suite);
-        Result.Add_Test (Real_Quaternions_Tests.Suite);
-        return Result;
-    end Suite;
-end Ragnvaldr.Tests;
+    function Suite return Access_Test_Suite;
+
+end Ragnvaldr.Geometries.Tests;

@@ -19,9 +19,9 @@ with AUnit.Assertions; use AUnit.Assertions;
 with AUnit.Test_Caller;
 with AUnit.Test_Fixtures;
 with Ada.Exceptions;
-with Ragnvaldr.Raytracer;
+with Ragnvaldr.Geometries;
   
-package body Ragnvaldr.Raytracer.Tests is
+package body Ragnvaldr.Geometries.Tests is
 
     type Test_Fixture is new AUnit.Test_Fixtures.Test_Fixture with null record;
 
@@ -29,13 +29,15 @@ package body Ragnvaldr.Raytracer.Tests is
         
         pragma Unreferenced(T);
 
-        A_Ray : Ray := Make_Ray(Origin => (1.0, -2.0, -1.0),
-                                Direction => (1.0, 2.0, 4.0));
+        A_Ray : Ray := Make_Ray
+          (Origin => (1.0 * Meter, -2.0 * Meter, -1.0 * Meter),
+           Direction => (1.0, 2.0, 4.0));
         
-        A_Sphere : Sphere := (Position => (3.0, 0.0, 5.0),
-                              Radius => 3.0);
+        A_Sphere : Sphere := 
+          (Center => (3.0 * Meter, 0.0 * Meter, 5.0 * Meter),
+           Radius => 3.0 * Meter);
         
-        Actual_Hits : Hit_Array := Intersects(A_Ray => A_Ray, A_Sphere => A_Sphere);
+        Actual_Hits : Hit_Array := Intersect(A_Ray => A_Ray, A_Sphere => A_Sphere);
         First_Hit : Hit;
         Second_Hit : Hit;
     
@@ -44,11 +46,11 @@ package body Ragnvaldr.Raytracer.Tests is
         Assert(Actual_Hits'Length = 2, "Expected the ray to hit the sphere twice");
         
         First_Hit := Actual_Hits(1);
-        Assert(First_Hit.Distance = 3.74347758, "Expected the distance of first hit to be 3.74347758");
+        Assert(First_Hit.Distance = 3.74347758 * Meter, "Expected the distance of first hit to be 3.74347758");
         Assert(First_Hit.State = Entering, "Expected state of first hit is entering");
         
         Second_Hit := Actual_Hits(2);
-        Assert(Second_Hit.Distance = 9.34959507, "Expected the distance of the second hit to be 9.34959507");
+        Assert(Second_Hit.Distance = 9.34959507 * Meter, "Expected the distance of the second hit to be 9.34959507");
         Assert(Second_Hit.State = Exiting, "Expected state of first hit is entering");
 
     end Test_Intersects_Ray_Outside_And_Points_Towards;
@@ -57,13 +59,15 @@ package body Ragnvaldr.Raytracer.Tests is
         
         pragma Unreferenced(T);
 
-        A_Ray : Ray := Make_Ray(Origin => (1.0, -2.0, -1.0),
-                                Direction => (-1.0, -2.0, -4.0));
+        A_Ray : Ray := Make_Ray
+          (Origin => (1.0 * Meter, -2.0 * Meter, -1.0 * Meter),
+           Direction => (-1.0, -2.0, -4.0));
         
-        A_Sphere : Sphere := (Position => (3.0, 0.0, 5.0),
-                              Radius => 3.0);
+        A_Sphere : Sphere := 
+          (Center => (3.0 * Meter, 0.0 * Meter, 5.0 * Meter),
+           Radius => 3.0 * Meter);
         
-        Actual_Hits : Hit_Array := Intersects(A_Ray => A_Ray, A_Sphere => A_Sphere);
+        Actual_Hits : Hit_Array := Intersect(A_Ray => A_Ray, A_Sphere => A_Sphere);
     
     begin -- Test_Intersects_Ray_Outside_And_Points_Away
 
@@ -75,13 +79,15 @@ package body Ragnvaldr.Raytracer.Tests is
         
         pragma Unreferenced(T);
 
-        A_Ray : Ray := Make_Ray(Origin => (3.0, 0.0, 5.0),
-                                Direction => (1.0, 2.0, 4.0));
+        A_Ray : Ray := Make_Ray
+          (Origin => (3.0 * Meter, 0.0 * Meter, 5.0 * Meter),
+           Direction => (1.0, 2.0, 4.0));
         
-        A_Sphere : Sphere := (Position => (3.0, 0.0, 5.0),
-                              Radius => 3.0);
+        A_Sphere : Sphere := 
+          (Center => (3.0 * Meter, 0.0 * Meter, 5.0 * Meter),
+           Radius => 3.0 * Meter);
         
-        Actual_Hits : Hit_Array := Intersects(A_Ray => A_Ray, A_Sphere => A_Sphere);
+        Actual_Hits : Hit_Array := Intersect(A_Ray => A_Ray, A_Sphere => A_Sphere);
         
         Actual_Hit : Hit;
 
@@ -90,7 +96,7 @@ package body Ragnvaldr.Raytracer.Tests is
         Assert(Actual_Hits'Length = 1, "Expected the ray to hit the sphere once");
         
         Actual_Hit := Actual_Hits(1);
-        Assert(Actual_Hit.Distance = 3.0, "Expected the distance of the hit to be 3.0");
+        Assert(Actual_Hit.Distance = 3.0 * Meter, "Expected the distance of the hit to be 3.0");
         Assert(Actual_Hit.State = Exiting, "Expected the ray to be exiting");
           
     end Test_Intersects_Ray_Inside;
@@ -99,13 +105,15 @@ package body Ragnvaldr.Raytracer.Tests is
         
         pragma Unreferenced(T);
 
-        A_Ray : Ray := Make_Ray(Origin => (0.0, 0.0, 0.0),
-                                Direction => (0.0, 0.0, 1.0));
+        A_Ray : Ray := Make_Ray
+          (Origin => (0.0 * Meter, 0.0 * Meter, 0.0 * Meter),
+           Direction => (0.0, 0.0, 1.0));
         
-        A_Sphere : Sphere := (Position => (1.0, 1.0, 1.0),
-                              Radius => 1.0);
+        A_Sphere : Sphere := 
+          (Center => (1.0 * Meter, 1.0 * Meter, 1.0 * Meter),
+           Radius => 1.0 * Meter);
         
-        Actual_Hits : Hit_Array := Intersects(A_Ray => A_Ray, A_Sphere => A_Sphere);
+        Actual_Hits : Hit_Array := Intersect(A_Ray => A_Ray, A_Sphere => A_Sphere);
     
     begin -- Test_Intersects_Ray_Outside_And_Points_Along
 
@@ -137,4 +145,4 @@ package body Ragnvaldr.Raytracer.Tests is
         return Ret;
     end Suite;
 
-end Ragnvaldr.Raytracer.Tests;
+end Ragnvaldr.Geometries.Tests;
