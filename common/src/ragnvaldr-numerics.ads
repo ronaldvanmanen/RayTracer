@@ -21,15 +21,4 @@ package Ragnvaldr.Numerics is
 
     pragma Pure (Numerics);
 
-    subtype Length is Float;
-
-    subtype Axis is Integer range 1 .. 3;
-
-    type Vector is new Real_Vector (Axis);
-
-    type Euler_Vector is record
-        Axis : Vector;
-        Angle : Float;
-    end record;
-
 end Ragnvaldr.Numerics;
