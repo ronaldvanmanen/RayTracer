@@ -19,27 +19,27 @@ package body Ragnvaldr.Numerics.Generic_Real_Quaternions is
 
     function "+" (Left, Right : Quaternion) return Quaternion is
     begin
-        return (A => Left.A + Right.A, 
-                B => Left.B + Right.B, 
-                C => Left.C + Right.C, 
-                D => Left.D + Right.D);
+        return (Re => Left.Re + Right.Re,
+                Im => (Left.Im(1) + Right.Im(1),
+                       Left.Im(2) + Right.Im(2),
+                       Left.Im(3) + Right.Im(3)));
     end "+";
     
     function "-" (Left, Right : Quaternion) return Quaternion is
     begin
-        return (A => Left.A - Right.A, 
-                B => Left.B - Right.B, 
-                C => Left.C - Right.C, 
-                D => Left.D - Right.D);
+        return (Re => Left.Re - Right.Re,
+                Im => (Left.Im(1) - Right.Im(1),
+                       Left.Im(2) - Right.Im(2),
+                       Left.Im(3) - Right.Im(3)));
     end "-";
     
     function Image (Value : Quaternion) return String is
     begin
         return 
-          Real'Image (Value.A) & "+"  &
-          Real'Image (Value.B) & "i+" &
-          Real'Image (Value.C) & "j+" &
-          Real'Image (Value.D) & "k";
+          Real'Image (Value.Re) & "+"  &
+          Real'Image (Value.Im (1)) & "i+" &
+          Real'Image (Value.Im (2)) & "j+" &
+          Real'Image (Value.Im (3)) & "k";
     end Image;
 
 end Ragnvaldr.Numerics.Generic_Real_Quaternions;

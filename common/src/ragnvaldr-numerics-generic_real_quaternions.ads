@@ -15,25 +15,26 @@
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-generic
+with Ragnvaldr.Numerics.Generic_Real_Vectors;
 
-    type Real is digits <>;
+generic
     
+    type Real is digits <>;
+
 package Ragnvaldr.Numerics.Generic_Real_Quaternions is
     
     pragma Pure (Generic_Real_Quaternions);
 
+    package V is new Ragnvaldr.Numerics.Generic_Real_Vectors(Real);
+    
     type Quaternion is record
-        A, B, C, D : Real;
+        Re : Real;
+        Im : V.Real_Vector (Integer range 1..3);
     end record;
     
     function "+" (Left, Right : Quaternion) return Quaternion
       with
-        Global => null,
-        Post => "+"'Result.A = Left.A + Right.A and 
-                "+"'Result.B = Left.B + Right.B and 
-                "+"'Result.C = Left.C + Right.C and 
-                "+"'Result.D = Left.D + Right.D;
+        Global => null;
         
     function "-" (Left, Right : Quaternion) return Quaternion
       with
