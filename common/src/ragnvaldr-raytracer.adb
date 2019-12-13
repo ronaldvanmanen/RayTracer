@@ -16,97 +16,10 @@
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 with Ada.Numerics.Generic_Elementary_Functions;
+with Ragnvaldr.Dimensions; use Ragnvaldr.Dimensions;
+with Ragnvaldr.Geometries; use Ragnvaldr.Geometries;
 
 package body Ragnvaldr.Raytracer is
-
-    package Elementary_Functions is
-      new Ada.Numerics.Generic_Elementary_Functions (Float);
-    use Elementary_Functions;
-    
-    function Make_Ray(Origin : Vector; 
-                      Direction : Vector) return Ray is
-    begin
-        return Ray' (Origin => Origin, Direction => Direction / abs Direction);
-    end;    
-    
-    function Get_Point (A_Ray : Ray;
-                        A_Distance : Length) return Vector is
-    begin -- Get_Point;
-        return A_Ray.Origin + A_Ray.Direction * A_Distance;
-    end Get_Point;
-
-    function Get_Surface_Normal(A_Sphere : Sphere; 
-                                A_Point : Vector) return Vector is
-    begin -- Get_Surface_Normal
-        return (A_Point - A_Sphere.Position) / A_Sphere.Radius;
-    end Get_Surface_Normal;
-
-    function Intersects (A_Ray : in Ray;
-                         A_Sphere : in Sphere) return Hit_Array is
-      
-        Origin_To_Center : Vector;
-        Length_Squared_Of_Origin_To_Center : Length;
-        Radius_Of_Sphere_Squared : Length;
-        Is_Outside : Boolean;
-        Closest_Approach : Length;
-        Points_Away : Boolean;
-        Closest_Approach_Squared : Length;
-        Half_Chord_Distance_Squared : Length;
-        Half_Chord_Distance : Length;
-        
-    begin -- Intersects
-      
-        -- (1) Find if ray's origin is outside sphere
-        Origin_To_Center := A_Sphere.Position - A_Ray.Origin;
-        Length_Squared_Of_Origin_To_Center := Origin_To_Center * Origin_To_Center;
-        Radius_Of_Sphere_Squared := A_Sphere.Radius * A_Sphere.Radius;
-        Is_Outside := Length_Squared_Of_Origin_To_Center >= Radius_Of_Sphere_Squared;
-      
-        -- (2) Find closest approach of ray to sphere's center
-        Closest_Approach := Origin_To_Center * A_Ray.Direction;
-        Points_Away := Closest_Approach < 0.0;
-      
-        -- (3) If ray is outside and points away from sphere, ray must miss sphere
-        if Is_Outside and Points_Away then
-            return Empty_Hit_Array;
-        end if;
-      
-        -- (4) Else, find squared distance from closest approach to sphere surface
-        Closest_Approach_Squared := Closest_Approach * Closest_Approach;
-        Half_Chord_Distance_Squared := Radius_Of_Sphere_Squared -
-          Length_Squared_Of_Origin_To_Center + Closest_Approach_Squared;
-
-        -- (5) If value is negative, ray must miss sphere
-        if Half_Chord_Distance_Squared < 0.0 then
-            return Empty_Hit_Array;
-        end if;
-      
-        -- (6) Else, from above, find ray/surface distance
-        Half_Chord_Distance := Sqrt(Half_Chord_Distance_Squared);
-
-        if Is_Outside then
-            declare
-                Ret : Hit_Array(1..2);
-            begin
-                Ret (1) := Hit'
-                  (Distance => Closest_Approach - Half_Chord_Distance,
-                   State => Entering);
-                Ret (2) := Hit'
-                  (Distance => Closest_Approach + Half_Chord_Distance,
-                   State => Exiting);
-                return Ret;
-            end;
-        else
-            declare
-                Ret : Hit_Array(1..1);
-            begin
-                Ret (1) := Hit'
-                  (Distance => Closest_Approach + Half_Chord_Distance,
-                   State => Exiting);
-                return Ret;
-            end;
-        end if;
-    end Intersects;
     
     Zero : Float := 0.0;
     
@@ -116,16 +29,16 @@ package body Ragnvaldr.Raytracer is
     begin
         return Camera'
           (
-           Position => (0.0, 0.0, 0.0),
-           Orientation => (Axis => (0.0, 0.0, 1.0), Angle => 0.0),
-           Frame_Width => 640,
-           Frame_Height => 480,
+           Position => (0.0 * Meter, 0.0 * Meter, 0.0 * Meter),
+           Orientation => (Re => 0.0, Im => (0.0, 0.0, 0.0)),
+           Frame_Width => 36.0 * Millimeter,
+           Frame_Height => 24.0 * Millimeter,
            Frame_Aspect_Ratio => 4.0 / 3.0,
-           Near_Clippling_Plane => Float'Epsilon,
-           Far_Clipping_Plane => Positive_Infinity,
+           Near_Clippling_Plane => Length'Epsilon,
+           Far_Clipping_Plane => Length'Last,
            Focal_Ratio => Positive_Infinity,
-           Focal_Length => (640.0 / 480.0) / Tan(90.0 / 2.0),
-           Focal_Distance => Positive_Infinity
+           Focal_Length => 35.0 * Millimeter,
+           Focal_Distance => Length'Last
           );
     end Make_Camera;
         
