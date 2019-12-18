@@ -25,11 +25,13 @@ package Ragnvaldr.Numerics.Generic_Real_Quaternions is
     
     pragma Pure (Generic_Real_Quaternions);
 
-    package V is new Ragnvaldr.Numerics.Generic_Real_Vectors(Real);
+    package Real_Vectors is 
+      new Ragnvaldr.Numerics.Generic_Real_Vectors(Real);
+    use Real_Vectors;
     
     type Quaternion is record
         Re : Real;
-        Im : V.Real_Vector (Integer range 1..3);
+        Im : Real_Vector (Integer range 1..3);
     end record;
     
     function "+" (Left, Right : Quaternion) return Quaternion

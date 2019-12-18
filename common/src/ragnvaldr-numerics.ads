@@ -15,8 +15,6 @@
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-with Ada.Numerics.Real_Arrays; use Ada.Numerics.Real_Arrays;
-
 package Ragnvaldr.Numerics is
 
     pragma Pure (Numerics);
