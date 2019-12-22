@@ -33,7 +33,11 @@ package Ragnvaldr.Numerics.Generic_Real_Quaternions is
         Re : Real;
         Im : Real_Vector (Integer range 1..3);
     end record;
-    
+
+    function "*" (Left, Right : Quaternion) return Quaternion
+      with
+        Global => null;
+
     function "+" (Left, Right : Quaternion) return Quaternion
       with
         Global => null;

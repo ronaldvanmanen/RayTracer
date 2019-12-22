@@ -32,6 +32,15 @@ package body Ragnvaldr.Numerics.Generic_Real_Vectors is
              Result_Vector => Real_Vector,
              Operation     => "*");
         
+        function "*" is new
+          Scalar_Vector_Elementwise_Operation
+            (Left_Scalar   => Real,
+             Right_Scalar  => Real,
+             Result_Scalar => Real,
+             Right_Vector  => Real_Vector,
+             Result_Vector => Real_Vector,
+             Operation     => "*");
+        
         function "/" is new
           Vector_Scalar_Elementwise_Operation
             (Left_Scalar   => Real,
@@ -60,6 +69,17 @@ package body Ragnvaldr.Numerics.Generic_Real_Vectors is
              Right_Vector  => Real_Vector,
              Result_Vector => Real_Vector,
              Operation     => "-");
+        
+        function "*" is new
+          Inner_Product
+            (Left_Scalar   => Real,
+             Right_Scalar  => Real,
+             Result_Scalar => Real,
+             Left_Vector   => Real_Vector,
+             Right_Vector  => Real_Vector,
+             Zero          => 0.0,
+             "+"           => "+",
+             "*"           => "*");
 
     end Instantiations;
     
@@ -71,15 +91,24 @@ package body Ragnvaldr.Numerics.Generic_Real_Vectors is
     begin
         return Sqrt(Value * Value);
     end "abs";
-      
-    function "*" (Left, Right : Real_Vector) return Real is
+
+    function "*" (Left, Right : Real_Vector) return Real_Vector is
     begin
-        return Result : Real := 0.0 do
-            for J in Left'Range loop
-                Result := Result + Left (J) * Right (J - Left'First + Right'First);
-            end loop;
+        return Result : Real_Vector(1..3) do
+            Result(1) := Left (2) * Right (3) - Left (3) * Right (2);
+            Result(2) := Left (3) * Right (1) - Left (1) * Right (3);
+            Result(3) := Left (1) * Right (2) - Left (2) * Right (1);
         end return;
     end "*";
+
+    function "*" (Left, Right : Real_Vector) return Real renames
+      Instantiations."*";
+    
+    function "*" (Left : Real_Vector; Right : Real) return Real_Vector renames
+      Instantiations."*";
+
+    function "*" (Left : Real; Right : Real_Vector) return Real_Vector renames
+      Instantiations."*";
 
     function "+" (Left, Right : Real_Vector) return Real_Vector renames
       Instantiations."+";

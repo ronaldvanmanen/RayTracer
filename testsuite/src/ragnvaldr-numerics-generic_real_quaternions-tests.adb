@@ -31,7 +31,7 @@ package body Ragnvaldr.Numerics.Generic_Real_Quaternions.Tests is
         B : Quaternion := (Re => 11.0, Im => (13.0, 17.0, 19.0));
         C : Quaternion := (Re => 23.0, Im => (29.0, 31.0, 37.0));
     begin
-        Assert(A + (B + C) = (A + B) + C, "Addition must satifies additive associativity");
+        Assert(A + (B + C) = (A + B) + C, "Addition must satify additive associativity");
     end Addition_Satisfies_Additive_Associativity;
 
     procedure Addition_Satisfies_Additive_Commutativity (T : in out Test_Fixture) is
@@ -39,17 +39,35 @@ package body Ragnvaldr.Numerics.Generic_Real_Quaternions.Tests is
         A : Quaternion := (Re => 11.0, Im => (13.0, 17.0, 19.0));
         B : Quaternion := (Re => 23.0, Im => (29.0, 31.0, 37.0));
     begin
-        Assert(A + B = B + A, "Addition must satifies additive commutativity");
+        Assert(A + B = B + A, "Addition must satify additive commutativity");
     end Addition_Satisfies_Additive_Commutativity;
         
     procedure Addition_Satisfies_Additive_Identity (T : in out Test_Fixture) is
         pragma Unreferenced(T);
         A : Quaternion := (Re => 11.0, Im => (13.0, 17.0, 19.0));
-        Z : Quaternion := (Re => 0.0, Im => (0.0, 0.0, 0.0));
+        Zero : Quaternion := (Re => 0.0, Im => (0.0, 0.0, 0.0));
     begin
-        Assert(A = A + Z, "Addition must satifies additive identity");
-        Assert(A = Z + A, "Addition must satifies additive identity");
+        Assert(A = A + Zero, "Addition must satify additive identity");
+        Assert(A = Zero + A, "Addition must satify additive identity");
     end Addition_Satisfies_Additive_Identity;
+    
+    procedure Multiplication_Satisfies_Multiplicative_Associativity (T : in out Test_Fixture) is
+        pragma Unreferenced(T);
+        A : Quaternion := (Re => 1.0, Im => (3.0, 5.0, 7.0));
+        B : Quaternion := (Re => 11.0, Im => (13.0, 17.0, 19.0));
+        C : Quaternion := (Re => 23.0, Im => (29.0, 31.0, 37.0));
+    begin
+        Assert(A * (B * C) = (A * B) * C, "Multiplication must satify multiplicative associativity");
+    end Multiplication_Satisfies_Multiplicative_Associativity;
+
+    procedure Multiplication_Satisfies_Multiplicative_Identity (T : in out Test_Fixture) is
+        pragma Unreferenced(T);
+        A : Quaternion := (Re => 1.0, Im => (3.0, 5.0, 7.0));
+        One : Quaternion := (Re => 1.0, Im => (0.0, 0.0, 0.0));
+    begin
+        Assert(A = A * One, "Multiplication must satisfy multiplicative identity");
+        Assert(A = One * A, "Multiplication must satisfy multiplicative identity");
+    end Multiplication_Satisfies_Multiplicative_Identity;
     
     package Caller is new AUnit.Test_Caller (Test_Fixture);
 
@@ -68,6 +86,14 @@ package body Ragnvaldr.Numerics.Generic_Real_Quaternions.Tests is
           (Caller.Create
              ("Addition_Satisfies_Additive_Identity", 
               Addition_Satisfies_Additive_Identity'Access));
+        Ret.Add_Test
+          (Caller.Create
+             ("Multiplication_Satisfies_Multiplicative_Associativity",
+              Multiplication_Satisfies_Multiplicative_Associativity'Access));
+        Ret.Add_Test
+          (Caller.Create
+             ("Multiplication_Satisfies_Multiplicative_Identity",
+              Multiplication_Satisfies_Multiplicative_Identity'Access));
         return Ret;
     end Suite;
 

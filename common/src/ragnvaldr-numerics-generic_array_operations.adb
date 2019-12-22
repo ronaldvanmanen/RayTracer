@@ -29,6 +29,18 @@ package body Ragnvaldr.Numerics.Generic_Array_Operations is
         end return;
     end Vector_Scalar_Elementwise_Operation;   
 
+    function Scalar_Vector_Elementwise_Operation
+      (Left  : Left_Scalar;
+       Right : Right_Vector) return Result_Vector
+    is
+    begin
+        return R : Result_Vector(Right'Range) do
+            for J in Right'Range loop
+                R (J) := Operation (Left, Right (J));
+            end loop;
+        end return;
+    end Scalar_Vector_Elementwise_Operation;   
+
     function Vector_Vector_Elementwise_Operation
       (Left  : Left_Vector;
        Right : Right_Vector) return Result_Vector
@@ -40,5 +52,17 @@ package body Ragnvaldr.Numerics.Generic_Array_Operations is
             end loop;
         end return;
     end Vector_Vector_Elementwise_Operation;   
+
+    function Inner_Product
+      (Left  : Left_Vector;
+       Right : Right_Vector) return Result_Scalar
+    is
+    begin
+        return Result : Result_Scalar := Zero do
+            for J in Left'Range loop
+                Result := Result + Left (J) * Right (J - Left'First + Right'First);
+            end loop;
+        end return;
+    end Inner_Product;   
 
 end Ragnvaldr.Numerics.Generic_Array_Operations;
