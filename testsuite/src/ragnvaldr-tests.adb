@@ -18,6 +18,7 @@
 with Ragnvaldr.Dimensions.Tests;
 with Ragnvaldr.Geometries.Tests;
 with Ragnvaldr.Numerics.Generic_Real_Quaternions.Tests;
+with Ragnvaldr.Numerics.Generic_Real_Vectors.Tests;
 with AUnit.Tests;
 
 package body Ragnvaldr.Tests is
@@ -26,12 +27,17 @@ package body Ragnvaldr.Tests is
       new Ragnvaldr.Numerics.Generic_Real_Quaternions(Float);
     package Real_Quaternions_Tests is new Real_Quaternions.Tests;
     
+    package Real_Vectors is 
+      new Ragnvaldr.Numerics.Generic_Real_Vectors(Float);
+    package Real_Vectors_Tests is new Real_Vectors.Tests;
+    
     function Suite return Access_Test_Suite is
         Result : Access_Test_Suite := AUnit.Test_Suites.New_Suite;
     begin
         Result.Add_Test (Ragnvaldr.Dimensions.Tests.Suite);
         Result.Add_Test (Ragnvaldr.Geometries.Tests.Suite);
         Result.Add_Test (Real_Quaternions_Tests.Suite);
+        Result.Add_Test (Real_Vectors_Tests.Suite);
         return Result;
     end Suite;
 end Ragnvaldr.Tests;
