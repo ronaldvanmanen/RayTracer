@@ -97,5 +97,4 @@ package body Ragnvaldr.Numerics.Generic_Real_Quaternions.Tests is
         return Ret;
     end Suite;
 
-
 end Ragnvaldr.Numerics.Generic_Real_Quaternions.Tests;

@@ -27,11 +27,11 @@ package Ragnvaldr.Numerics.Generic_Real_Quaternions is
 
     package Real_Vectors is 
       new Ragnvaldr.Numerics.Generic_Real_Vectors(Real);
-    use Real_Vectors;
+    type Imaginary is new Real_Vectors.Real_Vector (Integer range 1..3);
     
     type Quaternion is record
         Re : Real;
-        Im : Real_Vector (Integer range 1..3);
+        Im : Imaginary;
     end record;
 
     function "*" (Left, Right : Quaternion) return Quaternion

@@ -24,7 +24,6 @@ package body Ragnvaldr.Numerics.Generic_Real_Quaternions is
            Im => Left.Re * Right.Im + Right.Re * Left.Im + Left.Im * Right.Im);
     end "*";
       
-
     function "+" (Left, Right : Quaternion) return Quaternion is
     begin
         return (Re => Left.Re + Right.Re,
