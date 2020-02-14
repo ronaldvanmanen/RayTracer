@@ -17,16 +17,21 @@
 
 with AUnit.Reporter.Text;
 with AUnit.Run;
+with AUnit.Options;
 with Ragnvaldr.Tests; use Ragnvaldr.Tests;
 
 procedure Ragnvaldr.Test_Runner is
 
     procedure Runner is new AUnit.Run.Test_Runner (Suite);
-
     Reporter : AUnit.Reporter.Text.Text_Reporter;
+    Options : AUnit.Options.AUnit_Options :=
+      (Global_Timer     => True,
+       Test_Case_Timer  => True,
+       Report_Successes => True,
+       Filter           => null);
 
 begin -- Ragnvaldr.Test_Runner
 
-    Runner (Reporter);
+    Runner (Reporter, Options);
 
 end Ragnvaldr.Test_Runner;
