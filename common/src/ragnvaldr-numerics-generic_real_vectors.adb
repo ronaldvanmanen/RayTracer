@@ -34,7 +34,6 @@ package body Ragnvaldr.Numerics.Generic_Real_Vectors is
              Right_Vector  => Real_Vector,
              Zero          => 0.0,
              Sqrt          => Sqrt,
-             "+"           => "+",
              "*"           => "*");
 
         function "*" is new
