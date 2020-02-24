@@ -21,7 +21,21 @@ use Ragnvaldr.Numerics.Generic_Array_Operations;
 
 package body Ragnvaldr.Numerics.Generic_Real_Vectors is
 
+    package Elementary_Functions is
+      new Ada.Numerics.Generic_Elementary_Functions (Real'Base);
+    use Elementary_Functions;
+
     package Instantiations is
+
+        function "abs" is new
+          Absolute_Value
+            (Right_Scalar  => Real,
+             Result_Scalar => Real,
+             Right_Vector  => Real_Vector,
+             Zero          => 0.0,
+             Sqrt          => Sqrt,
+             "+"           => "+",
+             "*"           => "*");
 
         function "*" is new
           Vector_Scalar_Elementwise_Operation
@@ -83,14 +97,8 @@ package body Ragnvaldr.Numerics.Generic_Real_Vectors is
 
     end Instantiations;
     
-    package Elementary_Functions is
-      new Ada.Numerics.Generic_Elementary_Functions (Real'Base);
-    use Elementary_Functions;
-
-    function "abs" (Value : Real_Vector) return Real is
-    begin
-        return Sqrt(Value * Value);
-    end "abs";
+    function "abs" (Value : Real_Vector) return Real renames
+      Instantiations."abs";
 
     function "*" (Left, Right : Real_Vector) return Real_Vector is
     begin

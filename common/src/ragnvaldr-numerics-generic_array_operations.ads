@@ -20,6 +20,20 @@ package Ragnvaldr.Numerics.Generic_Array_Operations is
     pragma Pure (Generic_Array_Operations);
         
     generic
+        type Right_Scalar is private;
+        type Result_Scalar is private;
+        type Right_Vector is array (Integer range<>) of Right_Scalar;
+        Zero : Result_Scalar;
+        with function Sqrt(Value : Result_Scalar) return Result_Scalar;
+        with function "+"
+          (Left  : Result_Scalar; 
+           Right : Result_Scalar) return Result_Scalar;
+        with function "*"
+          (Left  : Right_Scalar; 
+           Right : Right_Scalar) return Result_Scalar;
+    function Absolute_Value (Right : Right_Vector) return Result_Scalar;
+    
+    generic
         type Left_Scalar is private;
         type Right_Scalar is private;
         type Result_Scalar is private;
@@ -66,8 +80,12 @@ package Ragnvaldr.Numerics.Generic_Array_Operations is
         type Left_Vector is array (Integer range<>) of Left_Scalar;
         type Right_Vector is array (Integer range<>) of Right_Scalar;
         Zero : Result_Scalar;
-        with function "+"(Left : Result_Scalar; Right : Result_Scalar) return Result_Scalar;
-        with function "*"(Left : Left_Scalar; Right : Right_Scalar) return Result_Scalar;
+        with function "+"
+          (Left  : Result_Scalar; 
+           Right : Result_Scalar) return Result_Scalar;
+        with function "*"
+          (Left  : Left_Scalar; 
+           Right : Right_Scalar) return Result_Scalar;
     function Inner_Product
       (Left  : Left_Vector;
        Right : Right_Vector) return Result_Scalar;

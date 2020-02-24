@@ -17,6 +17,16 @@
 
 package body Ragnvaldr.Numerics.Generic_Array_Operations is
 
+    function Absolute_Value (Right : Right_Vector) return Result_Scalar is
+    begin
+        return Result : Result_Scalar := Zero do
+            for J in Right'Range loop
+                Result := Result + Right (J) * Right (J);
+            end loop;
+            Result := Sqrt(Result);
+        end return;
+    end Absolute_Value;
+
     function Vector_Scalar_Elementwise_Operation
       (Left  : Left_Vector;
        Right : Right_Scalar) return Result_Vector
