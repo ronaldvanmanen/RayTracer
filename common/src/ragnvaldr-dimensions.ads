@@ -189,8 +189,8 @@ package Ragnvaldr.Dimensions is
       (Symbol => "Pa", Kilogram => 1, Meter => -1, Second => -2, others => 0);
     
     -- The type for the derived quantity velocity.
-    subtype Velocity is Scalar with Dimension =>
-      (Symbol => "m/s", Meter => 1, Second => -1, others => 0);
+    --subtype Velocity is Scalar with Dimension =>
+    --  (Symbol => "m/s", Meter => 1, Second => -1, others => 0);
     
     -- The type for the derived quantity voltage.
     subtype Voltage is Scalar with Dimension =>
@@ -391,8 +391,14 @@ package Ragnvaldr.Dimensions is
     type Vector is array(Integer range <>) of Scalar;
         
     type Displacement is array(Integer range <>) of Length;
-    
+
+    type Velocity is array(Integer range <>) of Speed;
+
     function "abs" (Right : Vector) return Scalar;
+    
+    function "abs" (Right : Displacement) return Length;
+    
+    function "abs" (Right : Velocity) return Speed;
     
     function "*" (Left : Vector; Right : Length) return Displacement;
     

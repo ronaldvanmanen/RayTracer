@@ -25,7 +25,68 @@ package body Ragnvaldr.Dimensions is
       new Ada.Numerics.Generic_Elementary_Functions (Scalar);
     use Elementary_Functions;
 
+    generic
+        type Right_Scalar is digits <>;
+        type Sum_Scalar is digits<>;
+        type Result_Scalar is digits <>;
+        type Right_Vector is array (Integer range<>) of Right_Scalar;
+    function Absolute_Value(Right : Right_Vector) return Result_Scalar;
+
+    function Absolute_Value(Right : Right_Vector) return Result_Scalar is
+        Sum : Sum_Scalar := 0.0;
+    begin
+        for J in Right'Range loop
+            Sum := Sum + Sum_Scalar(Right (J) * Right (J));
+        end loop;
+        return Result_Scalar(Sqrt(Scalar(Sum)));
+    end Absolute_Value;
+
+    generic
+        type Left_Scalar is digits <>;
+        type Right_Scalar is digits <>;
+        type Result_Scalar is digits <>;
+        type Left_Vector is array (Integer range<>) of Left_Scalar;
+        type Right_Vector is array (Integer range<>) of Right_Scalar;
+    function Inner_Product (Left : Left_Vector; Right : Right_Vector) return Result_Scalar;
+
+    function Inner_Product (Left : Left_Vector; Right : Right_Vector) return Result_Scalar is
+    begin
+        return Result : Result_Scalar := 0.0 do
+            for J in Left'Range loop
+                Result := Result + Result_Scalar(Scalar(Left (J)) * Scalar(Right (J - Left'First + Right'First)));
+            end loop;
+        end return;
+    end Inner_Product;
+
+    subtype Speed_Square is Scalar with Dimension =>
+      (Symbol => "m/s", Meter => 2, Second => -2, others => 0);
+
     package Instantiations is
+
+        function "abs" is new Absolute_Value
+          (Right_Scalar => Scalar,
+           Right_Vector => Vector,
+           Sum_Scalar => Scalar,
+           Result_Scalar => Scalar);
+
+        function "abs" is new Absolute_Value
+          (Right_Scalar => Length,
+           Right_Vector => Displacement,
+           Sum_Scalar => Area,
+           Result_Scalar => Length);
+
+        function "abs" is new Absolute_Value
+          (Right_Scalar => Speed,
+           Right_Vector => Velocity,
+           Sum_Scalar => Speed_Square,
+           Result_Scalar => Speed);
+
+        function "*" is new Inner_Product
+          (Left_Scalar => Length,
+           Right_Scalar => Scalar,
+           Result_Scalar => Length,
+           Left_Vector => Displacement,
+           Right_Vector => Vector);
 
         function "*" is new
           Vector_Scalar_Elementwise_Operation
@@ -35,6 +96,13 @@ package body Ragnvaldr.Dimensions is
              Left_Vector   => Vector,
              Result_Vector => Displacement,
              Operation     => "*");
+
+        function "*" is new Inner_Product
+          (Left_Scalar => Length,
+           Right_Scalar => Length,
+           Result_Scalar => Area,
+           Left_Vector => Displacement,
+           Right_Vector => Displacement);
 
         function "/" is new
           Vector_Scalar_Elementwise_Operation
@@ -76,36 +144,23 @@ package body Ragnvaldr.Dimensions is
 
     end Instantiations;
 
-    function "abs" (Right : Vector) return Scalar is
-    begin
-        return Result : Scalar := 0.0 do
-            for J in Right'Range loop
-                Result := Result + Right (J) * Right (J);
-            end loop;
-            Result := Sqrt(Result);
-        end return;
-    end "abs";
+    function "abs" (Right : Vector) return Scalar renames
+      Instantiations."abs";
+
+    function "abs" (Right : Displacement) return Length renames
+      Instantiations."abs";
+
+    function "abs" (Right : Velocity) return Speed renames
+      Instantiations."abs";
 
     function "*" (Left : Vector; Right : Length) return Displacement renames
       Instantiations."*";
 
-    function "*" (Left, Right : Displacement) return Area is
-    begin
-        return Result : Area := 0.0 do
-            for J in Left'Range loop
-                Result := Result + Left (J) * Right (J - Left'First + Right'First);
-            end loop;
-        end return;
-    end "*";
+    function "*" (Left, Right : Displacement) return Area renames
+      Instantiations."*";
 
-    function "*" (Left : Displacement; Right : Vector) return Length is
-    begin
-        return Result : Length := 0.0 do
-            for J in Left'Range loop
-                Result := Result + Left (J) * Right (J - Left'First + Right'First);
-            end loop;
-        end return;
-    end "*";
+    function "*" (Left : Displacement; Right : Vector) return Length renames
+      Instantiations."*";
 
     function "/" (Left : Vector; Right : Scalar) return Vector renames
       Instantiations."/";
