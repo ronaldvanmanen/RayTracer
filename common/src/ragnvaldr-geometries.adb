@@ -55,8 +55,7 @@ package body Ragnvaldr.Geometries is
     function "-" (Left, Right : Point) return Displacement renames
       Instantiations."-";
     
-    function Make_Ray(Origin : Point; 
-                      Direction : Vector) return Ray is
+    function Make_Ray(Origin : Point; Direction : Vector) return Ray is
     begin
         return Ray' (Origin => Origin, Direction => Direction / abs Direction);
     end;    
@@ -74,14 +73,14 @@ package body Ragnvaldr.Geometries is
                                   0.0 * Meter), Radius => Radius);
     end Make_Sphere;      
         
-    function Radius(S : Sphere) return Length is
+    function Radius(A_Sphere : Sphere) return Length is
     begin
-        return S.Radius;
+        return A_Sphere.Radius;
     end Radius;
         
-    function Surface_Area(S : Sphere) return Area is
+    function Surface_Area(A_Sphere : Sphere) return Area is
     begin
-        return 4.0 * Pi * S.Radius * S.Radius; 
+        return 4.0 * Pi * A_Sphere.Radius * A_Sphere.Radius; 
     end Surface_Area;
 
     function Surface_Normal(A_Sphere : Sphere; 

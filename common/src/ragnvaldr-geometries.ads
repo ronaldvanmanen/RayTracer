@@ -65,9 +65,9 @@ package Ragnvaldr.Geometries is
     
     function Make_Sphere(Radius : Length) return Sphere;
     
-    function Radius(S : Sphere) return Length;
+    function Radius(A_Sphere : Sphere) return Length;
     
-    function Surface_Area(S : Sphere) return Area;
+    function Surface_Area(A_Sphere : Sphere) return Area;
 
     function Surface_Normal(A_Sphere : Sphere; 
                             A_Point : Point) return Vector
