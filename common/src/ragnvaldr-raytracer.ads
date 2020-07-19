@@ -15,30 +15,8 @@
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-with Ragnvaldr.Dimensions; use Ragnvaldr.Dimensions;
-with Ragnvaldr.Geometries; use Ragnvaldr.Geometries;
-with Ragnvaldr.Numerics; use Ragnvaldr.Numerics;
-with Ragnvaldr.Numerics.Real_Quaternions; use Ragnvaldr.Numerics.Real_Quaternions;
-
 package Ragnvaldr.Raytracer is
 
-    type Camera is private;
+    pragma Pure;
 
-    function Make_Camera return Camera;
-
-private
-    
-    type Camera is record
-        Position : Point (1..3);
-        Orientation : Quaternion;
-        Frame_Width : Length;
-        Frame_Height : Length;
-        Frame_Aspect_Ratio : Float;
-        Near_Clippling_Plane : Length;
-        Far_Clipping_Plane : Length;
-        Focal_Ratio : Float;
-        Focal_Length : Length;
-        Focal_Distance : Length;
-    end record;
-            
 end Ragnvaldr.Raytracer;

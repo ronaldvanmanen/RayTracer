@@ -15,10 +15,20 @@
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-with Ragnvaldr.Dimensions; use Ragnvaldr.Dimensions;
+with Ragnvaldr.Dimensions;
+
+generic
+    
+    type Real is digits <>;
+    
+    with package Real_Dimensions is new Ragnvaldr.Dimensions (Real => Real);
 
 package Ragnvaldr.Geometries is
 
+    pragma Pure (Geometries);
+
+    use Real_Dimensions;
+    
     type Point is array(Integer range <>) of Length;
     
     function "+" (Left : Point; Right : Displacement) return Point

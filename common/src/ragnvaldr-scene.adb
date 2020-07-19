@@ -16,14 +16,14 @@
 --  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 with Ada.Numerics.Generic_Elementary_Functions;
-with Ragnvaldr.Dimensions; use Ragnvaldr.Dimensions;
-with Ragnvaldr.Geometries; use Ragnvaldr.Geometries;
+with Ragnvaldr.Dimensions;
+with Ragnvaldr.Geometries;
 
-package body Ragnvaldr.Raytracer is
+package body Ragnvaldr.Scene is
+
+    Zero : Scalar := 0.0;
     
-    Zero : Float := 0.0;
-    
-    Positive_Infinity : constant Float := 1.0 / Zero; 
+    Positive_Infinity : constant Scalar := 1.0 / Zero; 
     
     function Make_Camera return Camera is
     begin
@@ -42,4 +42,4 @@ package body Ragnvaldr.Raytracer is
           );
     end Make_Camera;
         
-end Ragnvaldr.Raytracer;
+end Ragnvaldr.Scene;

@@ -17,6 +17,7 @@
 
 with AUnit.Test_Suites; use AUnit.Test_Suites;
 
+generic
 package Ragnvaldr.Geometries.Tests with SPARK_Mode => Off is
 
     function Suite return Access_Test_Suite;
